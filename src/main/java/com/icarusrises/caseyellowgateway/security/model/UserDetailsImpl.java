@@ -1,4 +1,4 @@
-package com.icarusrises.caseyellowgateway.security;
+package com.icarusrises.caseyellowgateway.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

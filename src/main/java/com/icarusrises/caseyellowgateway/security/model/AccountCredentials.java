@@ -1,4 +1,4 @@
-package com.icarusrises.caseyellowgateway.security.configuration;
+package com.icarusrises.caseyellowgateway.security.model;
 
 public class AccountCredentials {
 

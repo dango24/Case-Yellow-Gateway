@@ -1,7 +1,7 @@
 package com.icarusrises.caseyellowgateway.converters;
 
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
-import com.icarusrises.caseyellowgateway.security.UserDetailsImpl;
+import com.icarusrises.caseyellowgateway.security.model.UserDetailsImpl;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +16,12 @@ public class UserToUserDetails implements Converter<UserDAO, UserDetails> {
     public UserDetails convert(UserDAO userDAO) {
         UserDetailsImpl userDetails = new UserDetailsImpl();
         userDetails.setUserName(userDAO.getUserName());
-        userDetails.setPassword(userDAO.getEncryptedPassword());
+        userDetails.setPassword(userDAO.getEncodedPassword());
         userDetails.setEnabled(userDAO.isEnabled());
-        userDetails.setAuthorities(userDAO.getRoles().stream().map(SimpleGrantedAuthority::new).collect(toList()));
+        userDetails.setAuthorities(userDAO.getRoles()
+                                          .stream()
+                                          .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                                          .collect(toList()));
 
         return userDetails;
     }

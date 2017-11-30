@@ -10,14 +10,28 @@ public class UserDAO {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String userName;
-    private String encryptedPassword;
+
+    private String encodedPassword;
     private boolean enabled;
+    private long dateCreated;
 
     @ManyToMany
-    private List<String> roles;
+    private List<RoleDAO> roles;
 
     public UserDAO() {
+        this(null);
+    }
+
+    public UserDAO(String userName) {
+        this(userName, null);
+    }
+
+    public UserDAO(String userName, String encodedPassword) {
+        this.userName = userName;
+        this.encodedPassword = encodedPassword;
+        dateCreated = System.currentTimeMillis();
     }
 
     public Long getId() {
@@ -36,12 +50,12 @@ public class UserDAO {
         this.userName = userName;
     }
 
-    public String getEncryptedPassword() {
-        return encryptedPassword;
+    public String getEncodedPassword() {
+        return encodedPassword;
     }
 
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
+    public void setEncodedPassword(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
     }
 
     public boolean isEnabled() {
@@ -52,13 +66,19 @@ public class UserDAO {
         this.enabled = enabled;
     }
 
-    public List<String> getRoles() {
+    public List<RoleDAO> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<RoleDAO> roles) {
         this.roles = roles;
     }
 
+    public long getDateCreated() {
+        return dateCreated;
+    }
 
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 }

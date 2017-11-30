@@ -1,3 +1,5 @@
+security.ignored: /**
+
 # H2
 spring.h2.console.enabled: true
 spring.h2.console.path: /console

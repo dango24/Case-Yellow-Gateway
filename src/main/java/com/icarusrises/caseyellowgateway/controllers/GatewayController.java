@@ -19,14 +19,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/gateway")
-public class CentralController {
+public class GatewayController {
 
-    private Logger logger = Logger.getLogger(CentralController.class);
+    private Logger logger = Logger.getLogger(GatewayController.class);
 
     private CentralService centralService;
 
     @Autowired
-    public CentralController(CentralService centralService) {
+    public GatewayController(CentralService centralService) {
         this.centralService = centralService;
     }
 

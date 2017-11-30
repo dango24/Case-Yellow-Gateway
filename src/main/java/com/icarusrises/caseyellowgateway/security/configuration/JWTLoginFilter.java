@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icarusrises.caseyellowgateway.security.model.AccountCredentials;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,8 +27,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
 
-        AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
-        UsernamePasswordAuthenticationToken authenticationToken = createUsernamePasswordAuthenticationToken(creds);
+        AccountCredentials accountCredentials = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+        UsernamePasswordAuthenticationToken authenticationToken = createUsernamePasswordAuthenticationToken(accountCredentials);
 
         return getAuthenticationManager().authenticate(authenticationToken);
     }
