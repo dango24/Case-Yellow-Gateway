@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.persistence.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,9 @@ public class UserDAO {
     public UserDAO(String userName, String encodedPassword) {
         this.userName = userName;
         this.encodedPassword = encodedPassword;
-        dateCreated = System.currentTimeMillis();
+        this.enabled = true;
+        this.dateCreated = System.currentTimeMillis();
+        this.roles = new ArrayList<>();
     }
 
     public Long getId() {
