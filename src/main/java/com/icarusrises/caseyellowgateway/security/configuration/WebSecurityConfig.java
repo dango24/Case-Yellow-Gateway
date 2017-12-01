@@ -11,22 +11,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.annotation.PostConstruct;
 
 @Profile("prod")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String TokenAuthenticationService;
-
+    private String tokenAuthenticationServiceKey;
     private DaoAuthenticationProvider daoAuthenticationProvider;
 
     @Autowired
     public void setDaoAuthenticationProvider(DaoAuthenticationProvider daoAuthenticationProvider) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
+    }
+
+    @PostConstruct
+    private void init() {
+        tokenAuthenticationServiceKey = receiveKeyFromUser();
+    }
+
+    private String receiveKeyFromUser() {
+        return "dango";
     }
 
     @Override
@@ -51,10 +60,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 
         return daoAuthenticationProvider;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

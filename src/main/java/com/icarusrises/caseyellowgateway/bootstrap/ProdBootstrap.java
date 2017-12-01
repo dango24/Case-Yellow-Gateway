@@ -23,11 +23,9 @@ public class ProdBootstrap {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ProdBootstrap() {
-        passwordEncoder = new BCryptPasswordEncoder();
-    }
 
     @PostConstruct
     private void init() {
