@@ -14,6 +14,10 @@ public class SpeedTestMetaData {
     public SpeedTestMetaData() {
     }
 
+    public SpeedTestMetaData(String identifier) {
+        this.identifier = identifier;
+    }
+
     public String getWebSiteUrl() {
         return webSiteUrl;
     }
