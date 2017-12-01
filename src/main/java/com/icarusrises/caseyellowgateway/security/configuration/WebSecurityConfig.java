@@ -1,5 +1,6 @@
 package com.icarusrises.caseyellowgateway.security.configuration;
 
+import com.icarusrises.caseyellowgateway.bootstrap.ProdBootstrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ import javax.annotation.PostConstruct;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String tokenAuthenticationServiceKey;
+    private ProdBootstrap prodBootstrap;
     private DaoAuthenticationProvider daoAuthenticationProvider;
 
     @Autowired
@@ -29,13 +30,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
     }
 
-    @PostConstruct
-    private void init() {
-        tokenAuthenticationServiceKey = receiveKeyFromUser();
+    @Autowired
+    public void setProdBootstrap(ProdBootstrap prodBootstrap) {
+        this.prodBootstrap = prodBootstrap;
     }
 
-    private String receiveKeyFromUser() {
-        return "dango";
+    @PostConstruct
+    private void init() {
+        String tokenAuthenticationServiceKey = prodBootstrap.receiveTokenAuthenticationKeyFromUser();
+        TokenAuthenticationService.setTokenAuthenticationServiceKey(tokenAuthenticationServiceKey);
     }
 
     @Override

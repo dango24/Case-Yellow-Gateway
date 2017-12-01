@@ -6,43 +6,74 @@ import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
 import com.icarusrises.caseyellowgateway.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Scanner;
+
+import static java.util.Objects.isNull;
 
 @Component
 @Profile("prod")
 public class ProdBootstrap {
 
-    @Autowired
+    private static final String ADMIN_USER = "admin";
+
     private UserRepository userRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public ProdBootstrap(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostConstruct
     private void init() {
-        String userName = "admin";
-        String pass = passwordEncoder.encode("pass");
+        if (isNull(userRepository.findByUserName(ADMIN_USER))) {
+            addAdminUser();
+        }
+    }
 
-        UserDAO userDAO = new UserDAO(userName, pass);
+    private void addAdminUser() {
+        String rawPassword = receiveUserInput("admin password");
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        UserDAO userDAO = new UserDAO(ADMIN_USER, encodedPassword);
+
         RoleDAO adminRole = roleRepository.findByRole("ADMIN");
-        RoleDAO userRole = roleRepository.findByRole("USER");
-        userDAO.setRoles(Arrays.asList(adminRole, userRole));
+        userDAO.setRoles(Arrays.asList(adminRole));
 
-        System.out.println(userDAO);
         userRepository.save(userDAO);
+    }
 
-        UserDAO user = userRepository.findByUserName("dan");
+    public String receiveTokenAuthenticationKeyFromUser() {
+        boolean validKey;
+        UserDAO adminUser;
+        String tokenAuthenticationKey;
 
-        System.out.println(userDAO);
+        do {
+            tokenAuthenticationKey = receiveUserInput("token authentication key");
+            adminUser = userRepository.findByUserName(ADMIN_USER);
+            validKey = passwordEncoder.matches(tokenAuthenticationKey, adminUser.getEncodedPassword());
+
+            if (!validKey) {
+                System.out.println("Key is incorrect.");
+            }
+
+        } while (!validKey);
+
+        return tokenAuthenticationKey;
+    }
+
+    private String receiveUserInput(String output) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter " + output + ": ");
+
+        return scanner.nextLine();
     }
 
 }

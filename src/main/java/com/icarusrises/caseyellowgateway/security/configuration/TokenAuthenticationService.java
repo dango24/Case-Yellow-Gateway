@@ -15,17 +15,22 @@ import static java.util.Objects.nonNull;
 
 public class TokenAuthenticationService {
 
+    private static String TOKEN_AUTHENTICATION_KEY;
+
     static final long EXPIRATION_TIME = TimeUnit.DAYS.toMillis(10); // 10 days
 
-    static final String SECRET = "ThisIsASecret";
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
+
+    public static void setTokenAuthenticationServiceKey(String tokenKey) {
+        TOKEN_AUTHENTICATION_KEY = tokenKey;
+    }
 
     static void addAuthentication(HttpServletResponse res, String username) {
         String JWT = Jwts.builder()
                          .setSubject(username)
                          .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                         .signWith(SignatureAlgorithm.HS512, SECRET)
+                         .signWith(SignatureAlgorithm.HS512, TOKEN_AUTHENTICATION_KEY)
                          .compact();
 
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
@@ -33,16 +38,22 @@ public class TokenAuthenticationService {
 
     static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = Jwts.parser()
-                              .setSigningKey(SECRET)
-                              .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                              .getBody()
-                              .getSubject();
 
-            return nonNull(user) ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
+        if (nonNull(token)) {
+            return getAuthenticationToken(token);
         }
+
         return null;
+    }
+
+    // parse the token.
+    private static Authentication getAuthenticationToken(String token) {
+        String user = Jwts.parser()
+                          .setSigningKey(TOKEN_AUTHENTICATION_KEY)
+                          .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                          .getBody()
+                          .getSubject();
+
+        return nonNull(user) ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
     }
 }
