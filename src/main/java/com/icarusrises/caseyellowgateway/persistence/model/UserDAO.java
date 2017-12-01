@@ -18,7 +18,7 @@ public class UserDAO {
     private boolean enabled;
     private long dateCreated;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleDAO> roles;
 
     public UserDAO() {
@@ -83,5 +83,16 @@ public class UserDAO {
 
     public void setDateCreated(long dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDAO{" +
+                "userName='" + userName + '\'' +
+                ", encodedPassword='" + encodedPassword + '\'' +
+                ", enabled=" + enabled +
+                ", dateCreated=" + dateCreated +
+                ", roles=" + roles +
+                '}';
     }
 }

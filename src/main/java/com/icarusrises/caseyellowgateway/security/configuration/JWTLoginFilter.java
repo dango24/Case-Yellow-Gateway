@@ -1,6 +1,8 @@
 package com.icarusrises.caseyellowgateway.security.configuration;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icarusrises.caseyellowgateway.exceptions.BadRequestException;
 import com.icarusrises.caseyellowgateway.security.model.AccountCredentials;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,10 +29,19 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
 
-        AccountCredentials accountCredentials = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+        AccountCredentials accountCredentials = parseAccountCredentialsFromRequest(req);
         UsernamePasswordAuthenticationToken authenticationToken = createUsernamePasswordAuthenticationToken(accountCredentials);
 
         return getAuthenticationManager().authenticate(authenticationToken);
+    }
+
+    private AccountCredentials parseAccountCredentialsFromRequest(HttpServletRequest req) throws IOException {
+        try {
+            return new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+
+        } catch (JsonMappingException e) {
+            throw new BadRequestException("Failed to parse request, The request schema is invalid, " + e.getMessage(), e);
+        }
     }
 
     @Override
