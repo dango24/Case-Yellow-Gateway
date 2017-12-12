@@ -19,7 +19,6 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 
         Authentication authentication = TokenAuthenticationService.getAuthentication((HttpServletRequest)request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-//        ((HttpServletResponse)response).addHeader("dango", "esfir");
         filterChain.doFilter(request,response);
     }
 }

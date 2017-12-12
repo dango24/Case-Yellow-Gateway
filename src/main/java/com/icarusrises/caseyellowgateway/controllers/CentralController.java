@@ -1,9 +1,10 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
-import com.icarusrises.caseyellowgateway.services.CentralService;
+import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,15 @@ import java.util.List;
  * Created by writeToFile on 6/25/17.
  */
 @RestController
-@RequestMapping("/gateway")
-public class GatewayController {
+@RequestMapping("/central")
+public class CentralController {
 
-    private Logger logger = Logger.getLogger(GatewayController.class);
+    private Logger logger = Logger.getLogger(CentralController.class);
 
     private CentralService centralService;
 
     @Autowired
-    public GatewayController(CentralService centralService) {
+    public CentralController(CentralService centralService) {
         this.centralService = centralService;
     }
 
@@ -45,15 +46,15 @@ public class GatewayController {
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FileDownloadMetaData> getFileDownloadMetaData(@RequestParam("num_of_comparison_per_test") int numOfComparisonPerTest) {
         logger.info("Received getFileDownloadMetaData GET request with num_of_comparison_per_test: " + numOfComparisonPerTest);
-        return centralService.getFileDownloadMetaData(numOfComparisonPerTest);
+        return centralService.getNextUrls(numOfComparisonPerTest);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/save-test")
     public void saveTest(@RequestParam("payload") String payload, @NotEmpty MultipartRequest request) {
-        logger.info("Received saveTest POST request with test payload: " + payload);
+        /*logger.info("Received saveTest POST request with test payload: " + payload);
 
-        centralService.saveTest(payload, request);
+        centralService.saveTest(payload, request);*/
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -62,6 +63,12 @@ public class GatewayController {
         logger.info("Received getAllTests GET request");
 
         return centralService.getAllTests();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/pre-signed-url")
+    public PreSignedUrl generatePreSignedUrl(@RequestParam("user_ip")String userIP, @RequestParam("file_name")String fileName) {
+        return centralService.generatePreSignedUrl(userIP, fileName);
     }
 
 }
