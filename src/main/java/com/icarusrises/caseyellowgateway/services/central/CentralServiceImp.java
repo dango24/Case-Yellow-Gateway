@@ -84,6 +84,11 @@ public class CentralServiceImp implements CentralService {
     public PreSignedUrl generatePreSignedUrl(String userIP, String fileName) {
         return requestHandler.execute(centralRequests.generatePreSignedUrl(userIP, fileName));
     }
+
+    @Override
+    public String googleVisionKey() {
+        return requestHandler.execute(centralRequests.googleVisionKey());
+    }
 /*
 
     private UploadTest createUploadTest(Test test) {

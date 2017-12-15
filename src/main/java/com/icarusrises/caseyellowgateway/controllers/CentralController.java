@@ -49,6 +49,15 @@ public class CentralController {
         return centralService.getNextUrls(numOfComparisonPerTest);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/google-vision-key",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String googleVisionKey() {
+        logger.info("Received googleVisionKey GET request");
+        return centralService.googleVisionKey();
+    }
+
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/save-test")
     public void saveTest(@RequestParam("payload") String payload, @NotEmpty MultipartRequest request) {

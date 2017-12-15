@@ -20,4 +20,5 @@ public interface CentralService {
     List<FileDownloadMetaData> getNextUrls(int numOfComparisonPerTest);
     List<Test> getAllTests();
     PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
+    String googleVisionKey();
 }
