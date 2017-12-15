@@ -3,6 +3,7 @@ package com.icarusrises.caseyellowgateway.controllers;
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
+import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.apache.log4j.Logger;
@@ -53,7 +54,7 @@ public class CentralController {
     @GetMapping(value = "/google-vision-key",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String googleVisionKey() {
+    public GoogleVisionKey googleVisionKey() {
         logger.info("Received googleVisionKey GET request");
         return centralService.googleVisionKey();
     }
