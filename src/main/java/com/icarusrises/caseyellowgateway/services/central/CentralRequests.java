@@ -5,8 +5,6 @@ import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -35,13 +33,13 @@ public interface CentralRequests {
     @GET("central/next-urls")
     Call<List<FileDownloadMetaData>> getNextUrls(@Query("num_of_comparison_per_test") int numOfComparisonPerTest);
 
-    @Multipart
-    @POST("central/save-test")
-    Call<Void> upload(
-            @Part("payload") RequestBody message,
-            @Part List<MultipartBody.Part> files
-    );
 
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/save-test")
+    Call<Void> saveTest(@Body Test test);
 
     @Headers({
             "Accept: application/json",

@@ -16,7 +16,6 @@ import java.util.List;
 public interface CentralService {
     void sendErrorMessage(String errorMessage);
     void saveTest(Test test) throws RequestFailureException;
-    int additionalTimeForWebTestToFinishInSec();
     SpeedTestMetaData getNextSpeedTestWebSite();
     List<FileDownloadMetaData> getNextUrls(int numOfComparisonPerTest);
     List<Test> getAllTests();

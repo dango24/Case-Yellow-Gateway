@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartRequest;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -61,10 +62,9 @@ public class CentralController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/save-test")
-    public void saveTest(@RequestParam("payload") String payload, @NotEmpty MultipartRequest request) {
-        /*logger.info("Received saveTest POST request with test payload: " + payload);
-
-        centralService.saveTest(payload, request);*/
+    public void saveTest(@RequestBody Test test) throws IOException {
+        logger.info("Received saveTest POST request with test : " + test);
+        centralService.saveTest(test);
     }
 
     @ResponseStatus(HttpStatus.OK)

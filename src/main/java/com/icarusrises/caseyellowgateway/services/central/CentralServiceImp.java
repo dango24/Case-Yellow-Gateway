@@ -53,17 +53,7 @@ public class CentralServiceImp implements CentralService {
 
     @Override
     public void saveTest(Test test) throws RequestFailureException {
-        /*UploadTest uploadTest;
-
-        if (nonNull(test)) {
-            uploadTest = createUploadTest(test);
-            requestHandler.execute(centralRequests.upload(uploadTest.getPayload(), uploadTest.getParts()));
-        }*/
-    }
-
-    @Override
-    public int additionalTimeForWebTestToFinishInSec() {
-        return requestHandler.execute(centralRequests.additionalTimeForWebTestToFinishInSec());
+        requestHandler.execute(centralRequests.saveTest(test));
     }
 
     @Override
