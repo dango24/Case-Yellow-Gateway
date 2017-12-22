@@ -8,14 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SpeedTestWebSite {
 
-    private int key;
     private boolean succeed;
     private String urlAddress;
     private String speedTestIdentifier;
     private String nonFlashResult;
+    private String path;
     private long startMeasuringTimestamp;
-    private Double downloadRateInMbps; // Mega bit per second
-    private Double downloadRateInKBps; // Mega bit per second
 
     public SpeedTestWebSite() {
     }
@@ -64,12 +62,12 @@ public class SpeedTestWebSite {
         this.startMeasuringTimestamp = startMeasuringTimestamp;
     }
 
-    public Double getDownloadRateInMbps() {
-        return downloadRateInMbps;
+    public String getPath() {
+        return path;
     }
 
-    public void setDownloadRateInMbps(Double downloadRateInMbps) {
-        this.downloadRateInMbps = downloadRateInMbps;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public boolean isSucceed() {
@@ -80,28 +78,12 @@ public class SpeedTestWebSite {
         this.succeed = succeed;
     }
 
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
     public String getNonFlashResult() {
         return nonFlashResult;
     }
 
     public void setNonFlashResult(String nonFlashResult) {
         this.nonFlashResult = nonFlashResult;
-    }
-
-    public Double getDownloadRateInKBps() {
-        return downloadRateInKBps;
-    }
-
-    public void setDownloadRateInKBps(Double downloadRateInKBps) {
-        this.downloadRateInKBps = downloadRateInKBps;
     }
 
     @Override
