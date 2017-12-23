@@ -37,6 +37,17 @@ public class ProdBootstrap {
         if (isNull(userRepository.findByUserName(ADMIN_USER))) {
             addAdminUser();
         }
+
+    }
+
+    private void addUser(String userName, String rawPassword) {
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        UserDAO userDAO = new UserDAO(userName, encodedPassword);
+
+        RoleDAO adminRole = roleRepository.findByRole("USER");
+        userDAO.setRoles(Arrays.asList(adminRole));
+
+        userRepository.save(userDAO);
     }
 
     private void addAdminUser() {
