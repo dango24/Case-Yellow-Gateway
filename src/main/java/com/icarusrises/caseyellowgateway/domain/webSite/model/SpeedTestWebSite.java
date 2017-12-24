@@ -14,6 +14,8 @@ public class SpeedTestWebSite {
     private String nonFlashResult;
     private String path;
     private long startMeasuringTimestamp;
+    private double downloadRateInMbps; // Mega bit per second
+    private double downloadRateInKBps; // Mega bit per second
 
     public SpeedTestWebSite() {
     }
@@ -84,6 +86,22 @@ public class SpeedTestWebSite {
 
     public void setNonFlashResult(String nonFlashResult) {
         this.nonFlashResult = nonFlashResult;
+    }
+
+    public Double getDownloadRateInMbps() {
+        return downloadRateInMbps;
+    }
+
+    public void setDownloadRateInMbps(Double downloadRateInMbps) {
+        this.downloadRateInMbps = downloadRateInMbps;
+    }
+
+    public Double getDownloadRateInKBps() {
+        return downloadRateInKBps;
+    }
+
+    public void setDownloadRateInKBps(Double downloadRateInKBps) {
+        this.downloadRateInKBps = downloadRateInKBps;
     }
 
     @Override
