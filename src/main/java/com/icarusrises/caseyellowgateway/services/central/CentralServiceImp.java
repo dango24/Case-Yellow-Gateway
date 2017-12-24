@@ -8,23 +8,15 @@ import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.List;
 
-import static java.util.stream.Collectors.toMap;
-
 @Service
-@Profile("prod")
 public class CentralServiceImp implements CentralService {
 
     @Value("${central_url}")

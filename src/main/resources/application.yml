@@ -3,6 +3,8 @@ spring.profiles.active: prod
 central_url: http://localhost:9080
 analysis_url: http://localhost:7008/analysis/
 
+tokenAuthenticationKey: bolshit
+
 roles:
   - ADMIN
   - USER

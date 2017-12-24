@@ -31,12 +31,9 @@ public class PasswordEncoderTest {
         this.userRepository = userRepository;
     }
 
-    @Before
-    public void setUp() throws Exception {
-        passwordEncoder = new BCryptPasswordEncoder();
-        String passEncoded = passwordEncoder.encode(RAW_PASSWORD);
-
-        userRepository.save(new UserDAO(USER_NAME, passEncoded));
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Test
@@ -65,6 +62,9 @@ public class PasswordEncoderTest {
 
     @Test
     public void receiveEncodedPass() {
+        String passEncoded = passwordEncoder.encode(RAW_PASSWORD);
+
+        userRepository.save(new UserDAO(USER_NAME, passEncoded));
         assertTrue(passwordEncoder.matches(RAW_PASSWORD, userRepository.findByUserName(USER_NAME).getEncodedPassword()));
     }
 }

@@ -5,6 +5,7 @@ import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
 import com.icarusrises.caseyellowgateway.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ import static java.util.Objects.isNull;
 public class ProdBootstrap {
 
     private static final String ADMIN_USER = "admin";
+
+    @Value("${tokenAuthenticationKey}")
+    private String tokenAuthenticationKey;
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -37,7 +41,6 @@ public class ProdBootstrap {
         if (isNull(userRepository.findByUserName(ADMIN_USER))) {
             addAdminUser();
         }
-
     }
 
     private void addUser(String userName, String rawPassword) {
@@ -64,10 +67,10 @@ public class ProdBootstrap {
     public String receiveTokenAuthenticationKeyFromUser() {
         boolean validKey;
         UserDAO adminUser;
-        String tokenAuthenticationKey;
+//        String tokenAuthenticationKey;
 
         do {
-            tokenAuthenticationKey = receiveUserInput("token authentication key");
+//            tokenAuthenticationKey = receiveUserInput("token authentication key");
             adminUser = userRepository.findByUserName(ADMIN_USER);
             validKey = passwordEncoder.matches(tokenAuthenticationKey, adminUser.getEncodedPassword());
 
