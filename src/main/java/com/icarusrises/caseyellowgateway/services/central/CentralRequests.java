@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
@@ -47,6 +48,13 @@ public interface CentralRequests {
     })
     @GET("central/all-tests")
     Call<List<Test>> getAllTests();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/failed-test")
+    Call<Void> failedTest(@Body FailedTestDetails failedTestDetails);
 
     @Headers({
             "Accept: application/json",

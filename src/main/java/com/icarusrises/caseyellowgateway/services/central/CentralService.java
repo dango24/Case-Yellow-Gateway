@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.services.central;
 
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by dango on 6/3/17.
  */
 public interface CentralService {
-    void sendErrorMessage(String errorMessage);
+    void failedTest(FailedTestDetails failedTestDetails);
     void saveTest(Test test) throws RequestFailureException;
     SpeedTestMetaData getNextSpeedTestWebSite();
     List<FileDownloadMetaData> getNextUrls(int numOfComparisonPerTest);

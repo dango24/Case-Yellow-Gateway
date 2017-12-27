@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
@@ -79,6 +80,13 @@ public class CentralController {
     @GetMapping("/pre-signed-url")
     public PreSignedUrl generatePreSignedUrl(@RequestParam("user_ip")String userIP, @RequestParam("file_name")String fileName) {
         return centralService.generatePreSignedUrl(userIP, fileName);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/failed-test")
+    public void failedTest(@RequestBody FailedTestDetails failedTestDetails) throws IOException {
+        logger.info("Received HttpStatus POST request with failed test : " + failedTestDetails);
+        centralService.failedTest(failedTestDetails);
     }
 
 }

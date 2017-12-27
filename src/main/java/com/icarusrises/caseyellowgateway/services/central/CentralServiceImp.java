@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
@@ -39,8 +40,8 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public void sendErrorMessage(String errorMessage) {
-//        requestHandler.execute(centralRequests.sendMessage(errorMessage));
+    public void failedTest(FailedTestDetails failedTestDetails) {
+        requestHandler.execute(centralRequests.failedTest(failedTestDetails));
     }
 
     @Override
