@@ -1,6 +1,11 @@
 package com.icarusrises.caseyellowgateway.domain.webSite.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SpeedTestMetaData {
 
     private String webSiteUrl;
@@ -10,6 +15,7 @@ public class SpeedTestMetaData {
     private boolean haveStartButton;
     private SpeedTestFlashMetaData speedTestFlashMetaData;
     private SpeedTestNonFlashMetaData speedTestNonFlashMetaData;
+    private List<Role> roles;
 
     public SpeedTestMetaData() {
     }
