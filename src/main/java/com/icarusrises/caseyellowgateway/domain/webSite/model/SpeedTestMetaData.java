@@ -79,4 +79,12 @@ public class SpeedTestMetaData {
     public void setSpeedTestNonFlashMetaData(SpeedTestNonFlashMetaData speedTestNonFlashMetaData) {
         this.speedTestNonFlashMetaData = speedTestNonFlashMetaData;
     }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
