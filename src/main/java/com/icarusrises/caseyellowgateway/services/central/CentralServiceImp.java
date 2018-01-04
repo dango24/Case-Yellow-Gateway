@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
 import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
+import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
 import com.icarusrises.caseyellowgateway.domain.test.model.Test;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
@@ -16,6 +17,7 @@ import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CentralServiceImp implements CentralService {
@@ -72,5 +74,15 @@ public class CentralServiceImp implements CentralService {
     @Override
     public GoogleVisionKey googleVisionKey() {
         return requestHandler.execute(centralRequests.googleVisionKey());
+    }
+
+    @Override
+    public Map<String, Long> countIPs() {
+       return requestHandler.execute(centralRequests.countIPs());
+    }
+
+    @Override
+    public Map<String, IdentifierDetails> createIdentifiersDetails() {
+        return requestHandler.execute(centralRequests.createIdentifiersDetails());
     }
 }
