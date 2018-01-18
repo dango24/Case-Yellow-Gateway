@@ -17,7 +17,7 @@ public class TokenAuthenticationService {
 
     private static String TOKEN_AUTHENTICATION_KEY;
 
-    static final long EXPIRATION_TIME = TimeUnit.DAYS.toMillis(10); // 10 days
+    static final long EXPIRATION_TIME = TimeUnit.MINUTES.toMillis(10); // 10 days
 
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
