@@ -1,11 +1,13 @@
 package com.icarusrises.caseyellowgateway.domain.webSite.model;
 
+import java.util.List;
 
 public class SpeedTestNonFlashMetaData {
 
     private String buttonId;
     private String finishIdentifier;
-    private String finishTextIdentifier;
+    private List<String> finishTextIdentifier;
+    private List<String> finishIdentifierKbps;
     private String resultLocation;
     private String resultAttribute;
 
@@ -28,14 +30,6 @@ public class SpeedTestNonFlashMetaData {
         this.finishIdentifier = finishIdentifier;
     }
 
-    public String getFinishTextIdentifier() {
-        return finishTextIdentifier;
-    }
-
-    public void setFinishTextIdentifier(String finishTextIdentifier) {
-        this.finishTextIdentifier = finishTextIdentifier;
-    }
-
     public String getResultLocation() {
         return resultLocation;
     }
@@ -50,5 +44,21 @@ public class SpeedTestNonFlashMetaData {
 
     public void setResultAttribute(String resultAttribute) {
         this.resultAttribute = resultAttribute;
+    }
+
+    public List<String> getFinishTextIdentifier() {
+        return finishTextIdentifier;
+    }
+
+    public void setFinishTextIdentifier(List<String> finishTextIdentifier) {
+        this.finishTextIdentifier = finishTextIdentifier;
+    }
+
+    public List<String> getFinishIdentifierKbps() {
+        return finishIdentifierKbps;
+    }
+
+    public void setFinishIdentifierKbps(List<String> finishIdentifierKbps) {
+        this.finishIdentifierKbps = finishIdentifierKbps;
     }
 }
