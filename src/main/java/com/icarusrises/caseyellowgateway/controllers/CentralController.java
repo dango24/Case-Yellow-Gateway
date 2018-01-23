@@ -27,6 +27,8 @@ public class CentralController {
 
     private Logger logger = Logger.getLogger(CentralController.class);
 
+    private static final String USER_HEADER = "Case-Yellow-User";
+
     private CentralService centralService;
 
     @Autowired
@@ -63,8 +65,9 @@ public class CentralController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/save-test")
-    public void saveTest(@RequestBody Test test) throws IOException {
+    public void saveTest(@RequestHeader(USER_HEADER)String user, @RequestBody Test test) throws IOException {
         logger.info("Received saveTest POST request with test : " + test);
+        test.setUser(user);
         centralService.saveTest(test);
     }
 
