@@ -1,6 +1,6 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
-import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
@@ -57,7 +57,7 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public List<FileDownloadMetaData> getNextUrls(int numOfComparisonPerTest) {
+    public List<FileDownloadProperties> getNextUrls(int numOfComparisonPerTest) {
         return requestHandler.execute(centralRequests.getNextUrls(numOfComparisonPerTest));
     }
 

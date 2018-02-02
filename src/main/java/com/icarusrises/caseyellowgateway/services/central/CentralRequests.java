@@ -1,6 +1,6 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
-import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
@@ -34,8 +34,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("central/next-urls")
-    Call<List<FileDownloadMetaData>> getNextUrls(@Query("num_of_comparison_per_test") int numOfComparisonPerTest);
-
+    Call<List<FileDownloadProperties>> getNextUrls(@Query("num_of_comparison_per_test") int numOfComparisonPerTest);
 
     @Headers({
             "Accept: application/json",

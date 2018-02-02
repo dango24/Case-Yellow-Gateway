@@ -1,6 +1,6 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
-import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
@@ -49,7 +49,7 @@ public class CentralController {
     @GetMapping(value = "/next-urls",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FileDownloadMetaData> getFileDownloadMetaData(@RequestParam("num_of_comparison_per_test") int numOfComparisonPerTest) {
+    public List<FileDownloadProperties> getFileDownloadMetaData(@RequestParam("num_of_comparison_per_test") int numOfComparisonPerTest) {
         logger.info("Received getFileDownloadMetaData GET request with num_of_comparison_per_test: " + numOfComparisonPerTest);
         return centralService.getNextUrls(numOfComparisonPerTest);
     }

@@ -1,7 +1,7 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
 
-import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadMetaData;
+import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
 import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
@@ -20,10 +20,10 @@ public interface CentralService {
     void failedTest(FailedTestDetails failedTestDetails);
     void saveTest(Test test) throws RequestFailureException;
     SpeedTestMetaData getNextSpeedTestWebSite();
-    List<FileDownloadMetaData> getNextUrls(int numOfComparisonPerTest);
     List<Test> getAllTests();
-    PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
+    List<FileDownloadProperties> getNextUrls(int numOfComparisonPerTest);
     GoogleVisionKey googleVisionKey();
+    PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
     Map<String, Long> countIPs();
     Map<String, IdentifierDetails> createIdentifiersDetails();
 }
