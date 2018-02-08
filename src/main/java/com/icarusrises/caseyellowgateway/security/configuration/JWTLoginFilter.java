@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icarusrises.caseyellowgateway.exceptions.BadRequestException;
 import com.icarusrises.caseyellowgateway.security.model.AccountCredentials;
+import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,8 +22,13 @@ import static java.util.Collections.emptyList;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    public JWTLoginFilter(String url, AuthenticationManager authManager) {
+    private final static String USER_REGISTRATION = "user_registration";
+
+    private CentralService centralService;
+
+    public JWTLoginFilter(String url, CentralService centralService, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
+        this.centralService = centralService;
         setAuthenticationManager(authManager);
     }
 
@@ -39,7 +45,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
                                             FilterChain chain, Authentication auth) throws IOException, ServletException {
 
-        TokenAuthenticationService.addAuthentication(res, auth.getName());
+        String userName = auth.getName();
+        TokenAuthenticationService.addAuthentication(res, userName);
+
+        if (!centralService.isUserExist(userName)) {
+            res.addHeader(USER_REGISTRATION, "true");
+        }
     }
 
     private UsernamePasswordAuthenticationToken createUsernamePasswordAuthenticationToken(AccountCredentials creds) {
@@ -54,5 +65,4 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             throw new BadRequestException("Failed to parse request, The request schema is invalid, " + e.getMessage(), e);
         }
     }
-
 }

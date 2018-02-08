@@ -40,9 +40,6 @@ public class TokenAuthenticationService {
         String token = request.getHeader(HEADER_STRING);
 
         if (nonNull(token)) {
-
-//            Date date = Jwts.parser().setSigningKey(TOKEN_AUTHENTICATION_KEY).parseClaimsJws(token).getBody().getExpiration();
-//            System.out.println(TimeUnit.MILLISECONDS.toMinutes(date.getTime() - System.currentTimeMillis()));
             return getAuthenticationToken(token);
         }
 

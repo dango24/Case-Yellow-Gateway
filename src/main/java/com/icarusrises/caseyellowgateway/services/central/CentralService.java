@@ -19,11 +19,13 @@ import java.util.Map;
 public interface CentralService {
     void failedTest(FailedTestDetails failedTestDetails);
     void saveTest(Test test) throws RequestFailureException;
+    boolean isUserExist(String userName);
+    GoogleVisionKey googleVisionKey();
     SpeedTestMetaData getNextSpeedTestWebSite();
+    PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
     List<Test> getAllTests();
     List<FileDownloadProperties> getNextUrls(int numOfComparisonPerTest);
-    GoogleVisionKey googleVisionKey();
-    PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
     Map<String, Long> countIPs();
+    Map<String, List<String>> getConnectionDetails();
     Map<String, IdentifierDetails> createIdentifiersDetails();
 }

@@ -92,6 +92,13 @@ public class CentralController {
         centralService.failedTest(failedTestDetails);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/connection-details")
+    private Map<String, List<String>> connectionDetails() {
+        logger.info("Received connectionDetails GET request");
+        return centralService.getConnectionDetails();
+    }
+
     @GetMapping("/statistics/count-ips")
     public Map<String, Long> countIPs() {
         logger.info("Received countIPs GET request");

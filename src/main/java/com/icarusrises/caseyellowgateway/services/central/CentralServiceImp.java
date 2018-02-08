@@ -52,6 +52,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public boolean isUserExist(String userName) {
+        return requestHandler.execute(centralRequests.isUserExist(userName));
+    }
+
+    @Override
     public SpeedTestMetaData getNextSpeedTestWebSite() {
         return requestHandler.execute(centralRequests.getNextSpeedTestWebSite());
     }
@@ -79,6 +84,11 @@ public class CentralServiceImp implements CentralService {
     @Override
     public Map<String, Long> countIPs() {
        return requestHandler.execute(centralRequests.countIPs());
+    }
+
+    @Override
+    public Map<String, List<String>> getConnectionDetails() {
+        return requestHandler.execute(centralRequests.getConnectionDetails());
     }
 
     @Override

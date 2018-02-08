@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.security.configuration;
 
 import com.icarusrises.caseyellowgateway.bootstrap.ProdBootstrap;
+import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ import javax.annotation.PostConstruct;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private ProdBootstrap prodBootstrap;
+    private CentralService centralService;
     private DaoAuthenticationProvider daoAuthenticationProvider;
 
     @Autowired
@@ -33,6 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setProdBootstrap(ProdBootstrap prodBootstrap) {
         this.prodBootstrap = prodBootstrap;
+    }
+
+    @Autowired
+    public void setCentralService(CentralService centralService) {
+        this.centralService = centralService;
     }
 
     @PostConstruct
@@ -47,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST, "/login").permitAll()
             .anyRequest().authenticated()
             .and()
-            .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new JWTLoginFilter("/login", centralService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

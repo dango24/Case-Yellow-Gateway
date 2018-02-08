@@ -72,6 +72,20 @@ public interface CentralRequests {
     Call<GoogleVisionKey> googleVisionKey();
 
     @Headers({
+        "Accept: application/json",
+        "Content-Type: application/json"
+    })
+    @GET("central/is-user-exist")
+    Call<Boolean> isUserExist(@Query("user_name")String userName);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("central/connection-details")
+    Call<Map<String, List<String>>> getConnectionDetails();
+
+    @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
