@@ -1,10 +1,7 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
-import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
-import com.icarusrises.caseyellowgateway.domain.test.model.Test;
+import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
@@ -110,5 +107,15 @@ public class CentralController {
         logger.info("Received identifiersDetails GET request");
         return centralService.createIdentifiersDetails();
     }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/save-connection-details")
+    public void saveConnectionDetails(@RequestHeader(USER_HEADER)String user, @RequestBody ConnectionDetails connectionDetails) {
+        logger.info("Received saveConnectionDetails POST request with user: " + user + " connectionDetails: " + connectionDetails);
+        UserDetails userDetails = new UserDetails(user, connectionDetails);
+        centralService.saveConnectionDetails(userDetails);
+    }
+
 
 }

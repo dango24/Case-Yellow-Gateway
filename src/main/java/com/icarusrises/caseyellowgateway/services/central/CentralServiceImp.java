@@ -1,10 +1,7 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
-import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
-import com.icarusrises.caseyellowgateway.domain.test.model.Test;
+import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
@@ -49,6 +46,11 @@ public class CentralServiceImp implements CentralService {
     @Override
     public void saveTest(Test test) throws RequestFailureException {
         requestHandler.execute(centralRequests.saveTest(test));
+    }
+
+    @Override
+    public void saveConnectionDetails(UserDetails userDetails) {
+        requestHandler.execute(centralRequests.saveConnectionDetails(userDetails));
     }
 
     @Override

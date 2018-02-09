@@ -1,10 +1,7 @@
 package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
-import com.icarusrises.caseyellowgateway.domain.test.model.FailedTestDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
-import com.icarusrises.caseyellowgateway.domain.test.model.PreSignedUrl;
-import com.icarusrises.caseyellowgateway.domain.test.model.Test;
+import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import retrofit2.Call;
@@ -84,6 +81,14 @@ public interface CentralRequests {
     })
     @GET("central/connection-details")
     Call<Map<String, List<String>>> getConnectionDetails();
+
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/save-user-details")
+    Call<Void> saveConnectionDetails(@Body UserDetails userDetails);
 
     @Headers({
             "Accept: application/json",
