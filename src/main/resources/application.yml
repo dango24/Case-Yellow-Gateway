@@ -5,6 +5,19 @@ analysis_url: http://localhost:7008/analysis/
 
 tokenAuthenticationKey: bolshit
 
+# Logger
+log.dir: /home/ec2-user/case-yellow/logs
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    caseyellow.server.gateway: INFO
+    org.hibernate: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] - %-5p %c{1}:%L - %m%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] - %-5p %c{1}:%L - %m%n"
+  file: ${log.dir}/caseyellow-gateway-log
+
 roles:
   - ADMIN
   - USER
