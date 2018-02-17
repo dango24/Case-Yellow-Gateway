@@ -24,7 +24,7 @@ public class CentralController {
 
     private Logger logger = Logger.getLogger(CentralController.class);
 
-    private static final String USER_HEADER = "Case-Yellow-User";
+    public static final String USER_HEADER = "Case-Yellow-User";
 
     private CentralService centralService;
 
@@ -37,8 +37,8 @@ public class CentralController {
     @GetMapping(value = "/next-web-site",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public SpeedTestMetaData getNextSpeedTestWebSite() {
-        logger.info("Received getNextSpeedTestWebSite GET request");
+    public SpeedTestMetaData getNextSpeedTestWebSite(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received getNextSpeedTestWebSite GET request, from user: %s", user));
         return centralService.getNextSpeedTestWebSite();
     }
 
@@ -46,73 +46,72 @@ public class CentralController {
     @GetMapping(value = "/next-urls",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FileDownloadProperties> getFileDownloadMetaData(@RequestParam("num_of_comparison_per_test") int numOfComparisonPerTest) {
-        logger.info("Received getFileDownloadMetaData GET request with num_of_comparison_per_test: " + numOfComparisonPerTest);
-        return centralService.getNextUrls(numOfComparisonPerTest);
+    public List<FileDownloadProperties> getFileDownloadMetaData(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received getFileDownloadMetaData GET request from user: %s", user));
+        return centralService.getNextUrls();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/google-vision-key",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public GoogleVisionKey googleVisionKey() {
-        logger.info("Received googleVisionKey GET request");
+    public GoogleVisionKey googleVisionKey(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received googleVisionKey GET request, from user: %s", user));
         return centralService.googleVisionKey();
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/save-test")
     public void saveTest(@RequestHeader(USER_HEADER)String user, @RequestBody Test test) throws IOException {
-        logger.info("Received saveTest POST request with test : " + test);
+        logger.info(String.format("Received saveTest POST request with test : %s, from user: %s", test, user));
         test.setUser(user);
         centralService.saveTest(test);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all-tests")
-    public List<Test> getAllTests() {
-        logger.info("Received getAllTests GET request");
-
+    public List<Test> getAllTests(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received getAllTests GET request, from user: %s", user));
         return centralService.getAllTests();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/pre-signed-url")
-    public PreSignedUrl generatePreSignedUrl(@RequestParam("user_ip")String userIP, @RequestParam("file_name")String fileName) {
+    public PreSignedUrl generatePreSignedUrl(@RequestHeader(USER_HEADER)String user, @RequestParam("user_ip")String userIP, @RequestParam("file_name")String fileName) {
+        logger.info(String.format("Received generatePreSignedUrl GET request with fileName: %s, userIP: %s, from user: %s", fileName, userIP, user));
         return centralService.generatePreSignedUrl(userIP, fileName);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/failed-test")
-    public void failedTest(@RequestBody FailedTestDetails failedTestDetails) throws IOException {
-        logger.info("Received HttpStatus POST request with failed test : " + failedTestDetails);
+    public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) throws IOException {
+        logger.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
         centralService.failedTest(failedTestDetails);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/connection-details")
-    private Map<String, List<String>> connectionDetails() {
-        logger.info("Received connectionDetails GET request");
+    private Map<String, List<String>> connectionDetails(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received connectionDetails GET request, from user: %s", user));
         return centralService.getConnectionDetails();
     }
 
     @GetMapping("/statistics/count-ips")
-    public Map<String, Long> countIPs() {
-        logger.info("Received countIPs GET request");
+    public Map<String, Long> countIPs(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received countIPs GET request, from user: %s", user));
         return centralService.countIPs();
     }
 
     @GetMapping("/statistics/identifiers-details")
-    public Map<String, IdentifierDetails> identifiersDetails() {
-        logger.info("Received identifiersDetails GET request");
+    public Map<String, IdentifierDetails> identifiersDetails(@RequestHeader(USER_HEADER)String user) {
+        logger.info(String.format("Received identifiersDetails GET request, from user: %s", user));
         return centralService.createIdentifiersDetails();
     }
-
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/save-connection-details")
     public void saveConnectionDetails(@RequestHeader(USER_HEADER)String user, @RequestBody ConnectionDetails connectionDetails) {
-        logger.info("Received saveConnectionDetails POST request with user: " + user + " connectionDetails: " + connectionDetails);
+        logger.info(String.format("Received saveConnectionDetails POST request with connectionDetails: %s, from user: %s", connectionDetails, user));
         UserDetails userDetails = new UserDetails(user, connectionDetails);
         centralService.saveConnectionDetails(userDetails);
     }

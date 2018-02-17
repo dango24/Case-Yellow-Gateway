@@ -64,8 +64,8 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public List<FileDownloadProperties> getNextUrls(int numOfComparisonPerTest) {
-        return requestHandler.execute(centralRequests.getNextUrls(numOfComparisonPerTest));
+    public List<FileDownloadProperties> getNextUrls() {
+        return requestHandler.execute(centralRequests.getNextUrls());
     }
 
     @Override

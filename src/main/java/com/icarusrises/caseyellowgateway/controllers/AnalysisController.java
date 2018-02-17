@@ -7,7 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.icarusrises.caseyellowgateway.controllers.CentralController.USER_HEADER;
 
 @RestController
 public class AnalysisController {
@@ -22,8 +25,8 @@ public class AnalysisController {
     }
 
     @PostMapping("/ocr_request")
-    public OcrResponse ocrRequest(@RequestBody GoogleVisionRequest googleVisionRequest) {
-        logger.info("Received ocrRequest: " + googleVisionRequest);
+    public OcrResponse ocrRequest(@RequestHeader(USER_HEADER)String user, @RequestBody GoogleVisionRequest googleVisionRequest) {
+        logger.info(String.format("Received ocrRequest: %s, from user: %s", googleVisionRequest, user));
         return analysisService.ocrRequest(googleVisionRequest);
     }
 }

@@ -31,7 +31,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("central/next-urls")
-    Call<List<FileDownloadProperties>> getNextUrls(@Query("num_of_comparison_per_test") int numOfComparisonPerTest);
+    Call<List<FileDownloadProperties>> getNextUrls();
 
     @Headers({
             "Accept: application/json",

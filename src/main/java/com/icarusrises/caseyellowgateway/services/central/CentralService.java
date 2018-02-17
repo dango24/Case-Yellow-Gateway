@@ -22,7 +22,7 @@ public interface CentralService {
     SpeedTestMetaData getNextSpeedTestWebSite();
     PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
     List<Test> getAllTests();
-    List<FileDownloadProperties> getNextUrls(int numOfComparisonPerTest);
+    List<FileDownloadProperties> getNextUrls();
     Map<String, Long> countIPs();
     Map<String, List<String>> getConnectionDetails();
     Map<String, IdentifierDetails> createIdentifiersDetails();
