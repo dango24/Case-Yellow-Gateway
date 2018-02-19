@@ -1,4 +1,4 @@
-package com.icarusrises.caseyellowgateway.bootstrap;
+package com.icarusrises.caseyellowgateway.domain.users;
 
 import com.icarusrises.caseyellowgateway.persistence.model.RoleDAO;
 import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
@@ -13,13 +13,13 @@ import static java.util.Objects.isNull;
 
 @Component
 @ConfigurationProperties
-public class Bootstrap {
+public class RoleService {
 
     private List<String> roles;
     private RoleRepository roleRepository;
 
     @Autowired
-    public Bootstrap(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 

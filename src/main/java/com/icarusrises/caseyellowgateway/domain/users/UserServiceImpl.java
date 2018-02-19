@@ -1,9 +1,10 @@
-package com.icarusrises.caseyellowgateway.bootstrap;
+package com.icarusrises.caseyellowgateway.domain.users;
 
 import com.icarusrises.caseyellowgateway.persistence.model.RoleDAO;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
 import com.icarusrises.caseyellowgateway.persistence.repository.UserRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -15,10 +16,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Component
 @Profile("prod")
-public class ProdBootstrap {
+public class UserServiceImpl implements UserService {
+
+    private Logger log = Logger.getLogger(UserServiceImpl.class);
 
     private static final String ADMIN_USER = "admin";
 
@@ -30,7 +34,7 @@ public class ProdBootstrap {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ProdBootstrap(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -43,6 +47,15 @@ public class ProdBootstrap {
         }
     }
 
+    @Override
+    public void addUser(String adminToken, String userName, String rawPassword) {
+        if (!isValidAdminKey(adminToken)) {
+            throw new IllegalArgumentException(String.format("Admin token is incorrect"));
+        }
+
+        addUser(userName, rawPassword);
+    }
+
     private void addUser(String userName, String rawPassword) {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         UserDAO userDAO = new UserDAO(userName, encodedPassword);
@@ -50,6 +63,7 @@ public class ProdBootstrap {
         RoleDAO adminRole = roleRepository.findByRole("USER");
         userDAO.setRoles(Arrays.asList(adminRole));
 
+        log.info(String.format("Add user: %s to DB", userName));
         userRepository.save(userDAO);
     }
 
@@ -61,18 +75,15 @@ public class ProdBootstrap {
         RoleDAO adminRole = roleRepository.findByRole("ADMIN");
         userDAO.setRoles(Arrays.asList(adminRole));
 
+        log.info("Add Admin user to DB");
         userRepository.save(userDAO);
     }
 
     public String receiveTokenAuthenticationKeyFromUser() {
         boolean validKey;
-        UserDAO adminUser;
-//        String tokenAuthenticationKey;
 
         do {
-//            tokenAuthenticationKey = receiveUserInput("token authentication key");
-            adminUser = userRepository.findByUserName(ADMIN_USER);
-            validKey = passwordEncoder.matches(tokenAuthenticationKey, adminUser.getEncodedPassword());
+            validKey = isValidAdminKey(tokenAuthenticationKey);
 
             if (!validKey) {
                 System.out.println("Key is incorrect.");
@@ -81,6 +92,11 @@ public class ProdBootstrap {
         } while (!validKey);
 
         return tokenAuthenticationKey;
+    }
+
+    private boolean isValidAdminKey(String tokenAuthenticationKey) {
+        UserDAO adminUser = userRepository.findByUserName(ADMIN_USER);
+        return nonNull(adminUser) && passwordEncoder.matches(tokenAuthenticationKey, adminUser.getEncodedPassword());
     }
 
     private String receiveUserInput(String output) {

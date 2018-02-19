@@ -1,6 +1,6 @@
 package com.icarusrises.caseyellowgateway.security.configuration;
 
-import com.icarusrises.caseyellowgateway.bootstrap.ProdBootstrap;
+import com.icarusrises.caseyellowgateway.domain.users.UserServiceImpl;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private ProdBootstrap prodBootstrap;
+    private UserServiceImpl prodBootstrap;
     private CentralService centralService;
     private DaoAuthenticationProvider daoAuthenticationProvider;
 
@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setProdBootstrap(ProdBootstrap prodBootstrap) {
+    public void setProdBootstrap(UserServiceImpl prodBootstrap) {
         this.prodBootstrap = prodBootstrap;
     }
 
