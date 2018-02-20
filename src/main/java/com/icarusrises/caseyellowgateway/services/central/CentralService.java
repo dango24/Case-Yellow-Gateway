@@ -20,7 +20,7 @@ public interface CentralService {
     boolean isUserExist(String userName);
     GoogleVisionKey googleVisionKey();
     SpeedTestMetaData getNextSpeedTestWebSite();
-    PreSignedUrl generatePreSignedUrl(String userIP, String fileName);
+    PreSignedUrl generatePreSignedUrl(String fileKey);
     List<Test> getAllTests();
     List<FileDownloadProperties> getNextUrls();
     Map<String, Long> countIPs();

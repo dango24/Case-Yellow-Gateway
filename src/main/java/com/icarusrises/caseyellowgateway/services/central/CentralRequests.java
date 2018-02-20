@@ -59,7 +59,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("central/pre-signed-url")
-    Call<PreSignedUrl> generatePreSignedUrl(@Query("user_ip") String userIP, @Query("file_name") String fileName);
+    Call<PreSignedUrl> generatePreSignedUrl(@Query("file_key") String fileKey);
 
     @Headers({
             "Accept: application/json",

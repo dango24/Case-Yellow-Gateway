@@ -74,8 +74,8 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public PreSignedUrl generatePreSignedUrl(String userIP, String fileName) {
-        return requestHandler.execute(centralRequests.generatePreSignedUrl(userIP, fileName));
+    public PreSignedUrl generatePreSignedUrl(String fileKey) {
+        return requestHandler.execute(centralRequests.generatePreSignedUrl(fileKey));
     }
 
     @Override
