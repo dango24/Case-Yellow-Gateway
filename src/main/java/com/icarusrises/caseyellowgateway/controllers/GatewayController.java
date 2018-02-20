@@ -4,9 +4,11 @@ import com.icarusrises.caseyellowgateway.domain.users.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Profile("prod")
 @RequestMapping("/gateway")
 public class GatewayController {
 
