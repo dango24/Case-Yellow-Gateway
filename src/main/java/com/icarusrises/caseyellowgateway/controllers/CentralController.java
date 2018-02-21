@@ -86,6 +86,7 @@ public class CentralController {
     @PostMapping("/failed-test")
     public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) throws IOException {
         logger.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
+        failedTestDetails.setUser(user);
         centralService.failedTest(failedTestDetails);
     }
 
