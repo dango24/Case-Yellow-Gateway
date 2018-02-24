@@ -1,8 +1,9 @@
 package com.icarusrises.caseyellowgateway.services.analysis;
 
-import com.icarusrises.caseyellowgateway.domain.analysis.googlevision.model.GoogleVisionRequest;
-import com.icarusrises.caseyellowgateway.domain.analysis.googlevision.model.OcrResponse;
-import com.icarusrises.caseyellowgateway.services.central.CentralRequests;
+import com.icarusrises.caseyellowgateway.domain.analysis.model.GoogleVisionRequest;
+import com.icarusrises.caseyellowgateway.domain.analysis.model.ImageClassification;
+import com.icarusrises.caseyellowgateway.domain.analysis.model.OcrResponse;
+import com.icarusrises.caseyellowgateway.domain.analysis.model.VisionRequest;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
@@ -37,5 +39,10 @@ public class AnalysisServiceImpl implements AnalysisService {
     @Override
     public OcrResponse ocrRequest(GoogleVisionRequest googleVisionRequest) {
         return requestHandler.execute(analysisRequests.ocrRequest(googleVisionRequest));
+    }
+
+    @Override
+    public List<ImageClassification> classifyImage(VisionRequest visionRequest) {
+        return requestHandler.execute(analysisRequests.classifyImage(visionRequest));
     }
 }
