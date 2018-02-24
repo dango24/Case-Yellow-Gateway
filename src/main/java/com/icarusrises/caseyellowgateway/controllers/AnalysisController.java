@@ -1,7 +1,7 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.analysis.model.GoogleVisionRequest;
-import com.icarusrises.caseyellowgateway.domain.analysis.model.ImageClassification;
+import com.icarusrises.caseyellowgateway.domain.analysis.model.ImageClassificationStatus;
 import com.icarusrises.caseyellowgateway.domain.analysis.model.OcrResponse;
 import com.icarusrises.caseyellowgateway.domain.analysis.model.VisionRequest;
 import com.icarusrises.caseyellowgateway.services.analysis.AnalysisService;
@@ -35,7 +35,7 @@ public class AnalysisController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/classify-image")
-    public List<ImageClassification> classifyImage(@RequestBody VisionRequest visionRequest) {
+    public ImageClassificationStatus classifyImage(@RequestBody VisionRequest visionRequest) {
         logger.info(String.format("Received classifyImage GET request for image: %s", visionRequest));
         return analysisService.classifyImage(visionRequest);
     }
