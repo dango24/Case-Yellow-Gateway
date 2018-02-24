@@ -1,4 +1,4 @@
-package com.icarusrises.caseyellowgateway.domain.analysis.googlevision.model;
+package com.icarusrises.caseyellowgateway.domain.analysis.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

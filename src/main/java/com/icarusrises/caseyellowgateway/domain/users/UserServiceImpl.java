@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         UserDAO userDAO = new UserDAO(userName, encodedPassword);
 
-        RoleDAO adminRole = roleRepository.findByRole("USER");
-        userDAO.setRoles(Arrays.asList(adminRole));
+        RoleDAO userRole = roleRepository.findByRole("USER");
+        userDAO.setRoles(Arrays.asList(userRole));
 
         log.info(String.format("Add user: %s to DB", userName));
         userRepository.save(userDAO);
