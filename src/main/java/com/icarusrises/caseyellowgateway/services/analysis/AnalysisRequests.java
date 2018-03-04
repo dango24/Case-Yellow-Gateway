@@ -21,5 +21,5 @@ public interface AnalysisRequests {
             "Content-Type: application/json"
     })
     @POST("classify-image")
-    Call<ImageClassificationStatus> classifyImage(@Query("identifier") String identifier, @Body VisionRequest visionRequest);
+    Call<ImageClassificationResult> classifyImage(@Query("identifier") String identifier, @Body VisionRequest visionRequest);
 }

@@ -4,5 +4,5 @@ import com.icarusrises.caseyellowgateway.domain.analysis.model.*;
 
 public interface AnalysisService {
     OcrResponse ocrRequest(GoogleVisionRequest googleVisionRequest);
-    ImageClassificationStatus classifyImage(String identifier, VisionRequest visionRequest);
+    ImageClassificationResult classifyImage(String identifier, VisionRequest visionRequest);
 }
