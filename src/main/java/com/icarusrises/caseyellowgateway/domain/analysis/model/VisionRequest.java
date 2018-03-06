@@ -1,7 +1,10 @@
 package com.icarusrises.caseyellowgateway.domain.analysis.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VisionRequest {
 
     private Image image;

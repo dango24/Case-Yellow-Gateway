@@ -39,6 +39,6 @@ public class AnalysisServiceImpl implements AnalysisService {
 
     @Override
     public ImageClassificationResult classifyImage(String identifier, VisionRequest visionRequest) {
-        return requestHandler.execute(analysisRequests.classifyImage(identifier, visionRequest));
+        return requestHandler.execute(analysisRequests.classifyImage(identifier, visionRequest.getImage().getMd5(), visionRequest));
     }
 }
