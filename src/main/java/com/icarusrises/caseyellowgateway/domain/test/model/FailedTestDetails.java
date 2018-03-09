@@ -7,8 +7,9 @@ public class FailedTestDetails {
 
     private String ip;
     private String path;
-    private String errorMessage;
     private String user;
+    private String errorMessage;
+    private String clientVersion;
 
     public FailedTestDetails() {
     }
@@ -50,6 +51,14 @@ public class FailedTestDetails {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getClientVersion() {
+        return clientVersion;
+    }
+
+    public void setClientVersion(String clientVersion) {
+        this.clientVersion = clientVersion;
     }
 
     public static class FailedTestDetailsBuilder {
