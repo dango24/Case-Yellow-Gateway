@@ -19,6 +19,8 @@ public class Test {
     private String testID;
     private String user;
     private String clientVersion;
+    private Long startTime;
+    private Long endTime;
     private SystemInfo systemInfo;
     private String speedTestWebsiteIdentifier;
     private List<ComparisonInfo> comparisonInfoTests;
