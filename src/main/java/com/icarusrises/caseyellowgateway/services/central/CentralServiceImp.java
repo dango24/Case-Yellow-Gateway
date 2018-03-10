@@ -74,6 +74,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public List<Test> getAllTestsByUser(String user) {
+        return requestHandler.execute(centralRequests.getAllTests(user));
+    }
+
+    @Override
     public PreSignedUrl generatePreSignedUrl(String fileKey) {
         return requestHandler.execute(centralRequests.generatePreSignedUrl(fileKey));
     }
@@ -96,5 +101,10 @@ public class CentralServiceImp implements CentralService {
     @Override
     public Map<String, IdentifierDetails> createIdentifiersDetails() {
         return requestHandler.execute(centralRequests.createIdentifiersDetails());
+    }
+
+    @Override
+    public Map<String, IdentifierDetails> createIdentifiersDetails(String user) {
+        return requestHandler.execute(centralRequests.createIdentifiersDetails(user));
     }
 }

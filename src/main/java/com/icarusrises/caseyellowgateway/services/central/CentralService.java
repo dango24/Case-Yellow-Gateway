@@ -26,4 +26,6 @@ public interface CentralService {
     Map<String, Long> countIPs();
     Map<String, List<String>> getConnectionDetails();
     Map<String, IdentifierDetails> createIdentifiersDetails();
+    Map<String, IdentifierDetails> createIdentifiersDetails(String user);
+    List<Test> getAllTestsByUser(String user);
 }

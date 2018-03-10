@@ -76,6 +76,15 @@ public class CentralController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/all-user-tests",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Test> getAllUserTests(@RequestParam("user") String user) {
+        logger.info(String.format("Received getAllTestsByUser GET request for user: %s", user));
+        return centralService.getAllTestsByUser(user);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/pre-signed-url")
     public PreSignedUrl generatePreSignedUrl(@RequestHeader(USER_HEADER)String user, @RequestParam("file_key")String fileKey) {
         logger.info(String.format("Received generatePreSignedUrl GET request with fileName: %s, from user: %s", fileKey, user));
@@ -107,6 +116,12 @@ public class CentralController {
     public Map<String, IdentifierDetails> identifiersDetails(@RequestHeader(USER_HEADER)String user) {
         logger.info(String.format("Received identifiersDetails GET request, from user: %s", user));
         return centralService.createIdentifiersDetails();
+    }
+
+    @GetMapping("/statistics/identifiers-details/{user}")
+    public Map<String, IdentifierDetails> identifiersDetailsByUser(@PathVariable("user")String user) {
+        logger.info(String.format("Received identifiersDetails GET request for user: %s", user));
+        return centralService.createIdentifiersDetails(user);
     }
 
     @ResponseStatus(HttpStatus.OK)

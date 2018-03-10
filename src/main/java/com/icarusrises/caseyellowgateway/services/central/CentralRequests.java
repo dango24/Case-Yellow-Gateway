@@ -51,6 +51,13 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
+    @GET("central/all-user-tests")
+    Call<List<Test>> getAllTests(@Query("user") String user);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     @POST("central/failed-test")
     Call<Void> failedTest(@Body FailedTestDetails failedTestDetails);
 
@@ -103,4 +110,11 @@ public interface CentralRequests {
     })
     @GET("statistics/identifiers-details")
     Call<Map<String, IdentifierDetails>> createIdentifiersDetails();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/identifiers-details/{user}")
+    Call<Map<String, IdentifierDetails>> createIdentifiersDetails(@Path("user") String user);
 }
