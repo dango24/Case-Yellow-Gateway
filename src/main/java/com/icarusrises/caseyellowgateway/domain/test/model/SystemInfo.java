@@ -1,66 +1,27 @@
 package com.icarusrises.caseyellowgateway.domain.test.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * Created by Dan on 12/10/2016.
  */
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SystemInfo {
 
     private String operatingSystem;
     private String browser;
     private String publicIP;
     private String connection; // LAN / Wifi connection
+    private String infrastructure;
+    private String isp;
+    private int speed;
 
-    public SystemInfo() {
-    }
-
-    public SystemInfo(String operatingSystem, String browser, String publicIP, String connection) {
-        this.operatingSystem = operatingSystem;
-        this.browser = browser;
-        this.publicIP = publicIP;
-        this.connection = connection;
-    }
-
-    public String getOperatingSystem() {
-        return operatingSystem;
-    }
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public String getPublicIP() {
-        return publicIP;
-    }
-
-    public String getConnection() {
-        return connection;
-    }
-
-    public void setOperatingSystem(String operatingSystem) {
-        this.operatingSystem = operatingSystem;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
-    }
-
-    public void setPublicIP(String publicIP) {
-        this.publicIP = publicIP;
-    }
-
-    public void setConnection(String connection) {
-        this.connection = connection;
-    }
-
-    @Override
-    public String toString() {
-        return "SystemInfoDAO{" +
-                "operatingSystem='" + operatingSystem + '\'' +
-                ", browser='" + browser + '\'' +
-                ", publicIP='" + publicIP + '\'' +
-                ", connection='" + connection + '\'' +
-                '}';
-    }
 }
