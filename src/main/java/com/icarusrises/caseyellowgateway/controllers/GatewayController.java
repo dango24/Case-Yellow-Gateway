@@ -1,18 +1,17 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @Profile("prod")
 @RequestMapping("/gateway")
 public class GatewayController {
-
-    private Logger logger = Logger.getLogger(GatewayController.class);
 
     private final static String ADMIN_TOKEN = "admin_token";
 
@@ -25,7 +24,7 @@ public class GatewayController {
 
     @PutMapping("/add-user")
     public void addUser(@RequestHeader(ADMIN_TOKEN) String adminToken, @RequestBody UserSignInDetails userSignInDetails) {
-        logger.info(String.format("Received addUser PUT request, for user: %s", userSignInDetails.getUserName()));
+        log.info(String.format("Received addUser PUT request, for user: %s", userSignInDetails.getUserName()));
 
         if (!validUserSignInDetails(userSignInDetails)) {
             throw new IllegalArgumentException(String.format("userSignInDetails is incorrect for user: %s" , userSignInDetails.getUserName()));

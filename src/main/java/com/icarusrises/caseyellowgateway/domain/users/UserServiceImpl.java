@@ -4,7 +4,7 @@ import com.icarusrises.caseyellowgateway.persistence.model.RoleDAO;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
 import com.icarusrises.caseyellowgateway.persistence.repository.UserRepository;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -18,11 +18,10 @@ import java.util.Scanner;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Slf4j
 @Component
 @Profile("prod")
 public class UserServiceImpl implements UserService {
-
-    private Logger log = Logger.getLogger(UserServiceImpl.class);
 
     private static final String ADMIN_USER = "admin";
 
