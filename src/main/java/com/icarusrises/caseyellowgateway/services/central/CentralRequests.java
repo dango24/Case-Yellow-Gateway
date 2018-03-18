@@ -117,4 +117,18 @@ public interface CentralRequests {
     })
     @GET("statistics/identifiers-details/{user}")
     Call<Map<String, IdentifierDetails>> createIdentifiersDetails(@Path("user") String user);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/user-last-test")
+    Call<String> userLastTest(@Query("user") String user);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/user-last-failed-test")
+    Call<String> userLastFailedTest(@Query("user") String user);
 }

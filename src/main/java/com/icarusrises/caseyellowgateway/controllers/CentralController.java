@@ -123,6 +123,18 @@ public class CentralController {
         return centralService.createIdentifiersDetails(user);
     }
 
+    @GetMapping("/statistics/user-last-test")
+    public String userLastTest(@RequestParam("user") String user) {
+        log.info(String.format("Received userLastTest GET request, for user: %s", user));
+        return centralService.userLastTest(user);
+    }
+
+    @GetMapping("/statistics/user-last-failed-test")
+    public String userLastFailedTest(@RequestParam("user") String user) {
+        log.info(String.format("Received userLastFailedTest GET request, for user: %s", user));
+        return centralService.userLastFailedTest(user);
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/save-connection-details")
     public void saveConnectionDetails(@RequestHeader(USER_HEADER)String user, @RequestBody ConnectionDetails connectionDetails) {

@@ -79,6 +79,16 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public String userLastTest(String user) {
+        return requestHandler.execute(centralRequests.userLastTest(user));
+    }
+
+    @Override
+    public String userLastFailedTest(String user) {
+        return requestHandler.execute(centralRequests.userLastFailedTest(user));
+    }
+
+    @Override
     public PreSignedUrl generatePreSignedUrl(String fileKey) {
         return requestHandler.execute(centralRequests.generatePreSignedUrl(fileKey));
     }
