@@ -37,7 +37,7 @@ public class CentralController {
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public SpeedTestMetaData getNextSpeedTestWebSite(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received getNextSpeedTestWebSite GET request, from user: %s", user));
-        return centralService.getNextSpeedTestWebSite();
+        return centralService.getNextSpeedTestWebSite(user);
     }
 
     @GetMapping(value = "/next-urls",
@@ -45,7 +45,7 @@ public class CentralController {
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FileDownloadProperties> getFileDownloadMetaData(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received getFileDownloadMetaData GET request from user: %s", user));
-        return centralService.getNextUrls();
+        return centralService.getNextUrls(user);
     }
 
     @GetMapping(value = "/google-vision-key",
@@ -53,7 +53,7 @@ public class CentralController {
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public GoogleVisionKey googleVisionKey(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received googleVisionKey GET request, from user: %s", user));
-        return centralService.googleVisionKey();
+        return centralService.googleVisionKey(user);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -61,13 +61,13 @@ public class CentralController {
     public void saveTest(@RequestHeader(USER_HEADER)String user, @RequestBody Test test) throws IOException {
         log.info(String.format("Received saveTest POST request with test : %s, from user: %s", test, user));
         test.setUser(user);
-        centralService.saveTest(test);
+        centralService.saveTest(test, user);
     }
 
     @GetMapping("/all-tests")
     public List<Test> getAllTests(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received getAllTests GET request, from user: %s", user));
-        return centralService.getAllTests();
+        return centralService.getAllTests(user);
     }
 
     @GetMapping(value = "/all-user-tests",
@@ -81,20 +81,20 @@ public class CentralController {
     @GetMapping("/pre-signed-url")
     public PreSignedUrl generatePreSignedUrl(@RequestHeader(USER_HEADER)String user, @RequestParam("file_key")String fileKey) {
         log.info(String.format("Received generatePreSignedUrl GET request with fileName: %s, from user: %s", fileKey, user));
-        return centralService.generatePreSignedUrl(fileKey);
+        return centralService.generatePreSignedUrl(fileKey, user);
     }
 
     @PostMapping("/failed-test")
     public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) throws IOException {
         log.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
         failedTestDetails.setUser(user);
-        centralService.failedTest(failedTestDetails);
+        centralService.failedTest(failedTestDetails, user);
     }
 
     @GetMapping("/connection-details")
     private Map<String, List<String>> connectionDetails(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received connectionDetails GET request, from user: %s", user));
-        return centralService.getConnectionDetails();
+        return centralService.getConnectionDetails(user);
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -102,7 +102,7 @@ public class CentralController {
     public void saveConnectionDetails(@RequestHeader(USER_HEADER)String user, @RequestBody ConnectionDetails connectionDetails) {
         log.info(String.format("Received saveConnectionDetails POST request with connectionDetails: %s, from user: %s", connectionDetails, user));
         UserDetails userDetails = new UserDetails(user, connectionDetails);
-        centralService.saveConnectionDetails(userDetails);
+        centralService.saveConnectionDetails(userDetails, user);
     }
 
 }

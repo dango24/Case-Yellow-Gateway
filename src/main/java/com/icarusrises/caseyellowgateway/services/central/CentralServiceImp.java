@@ -39,43 +39,43 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public void failedTest(FailedTestDetails failedTestDetails) {
-        requestHandler.execute(centralRequests.failedTest(failedTestDetails));
+    public void failedTest(FailedTestDetails failedTestDetails, String user) {
+        requestHandler.execute(centralRequests.failedTest(user, failedTestDetails));
     }
 
     @Override
-    public void saveTest(Test test) throws RequestFailureException {
-        requestHandler.execute(centralRequests.saveTest(test));
+    public void saveTest(Test test, String user) throws RequestFailureException {
+        requestHandler.execute(centralRequests.saveTest(user, test));
     }
 
     @Override
-    public void saveConnectionDetails(UserDetails userDetails) {
-        requestHandler.execute(centralRequests.saveConnectionDetails(userDetails));
+    public void saveConnectionDetails(UserDetails userDetails, String user) {
+        requestHandler.execute(centralRequests.saveConnectionDetails(user, userDetails));
     }
 
     @Override
     public boolean isUserExist(String userName) {
-        return requestHandler.execute(centralRequests.isUserExist(userName));
+        return requestHandler.execute(centralRequests.isUserExist(userName, userName));
     }
 
     @Override
-    public SpeedTestMetaData getNextSpeedTestWebSite() {
-        return requestHandler.execute(centralRequests.getNextSpeedTestWebSite());
+    public SpeedTestMetaData getNextSpeedTestWebSite(String user) {
+        return requestHandler.execute(centralRequests.getNextSpeedTestWebSite(user));
     }
 
     @Override
-    public List<FileDownloadProperties> getNextUrls() {
-        return requestHandler.execute(centralRequests.getNextUrls());
+    public List<FileDownloadProperties> getNextUrls(String user) {
+        return requestHandler.execute(centralRequests.getNextUrls(user));
     }
 
     @Override
-    public List<Test> getAllTests() {
-        return requestHandler.execute(centralRequests.getAllTests());
+    public List<Test> getAllTests(String user) {
+        return requestHandler.execute(centralRequests.getAllTests(user));
     }
 
     @Override
     public List<Test> getAllTestsByUser(String user) {
-        return requestHandler.execute(centralRequests.getAllTests(user));
+        return requestHandler.execute(centralRequests.getAllTests(user, user));
     }
 
     @Override
@@ -89,13 +89,13 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public PreSignedUrl generatePreSignedUrl(String fileKey) {
-        return requestHandler.execute(centralRequests.generatePreSignedUrl(fileKey));
+    public PreSignedUrl generatePreSignedUrl(String fileKey, String user) {
+        return requestHandler.execute(centralRequests.generatePreSignedUrl(user, fileKey));
     }
 
     @Override
-    public GoogleVisionKey googleVisionKey() {
-        return requestHandler.execute(centralRequests.googleVisionKey());
+    public GoogleVisionKey googleVisionKey(String user) {
+        return requestHandler.execute(centralRequests.googleVisionKey(user));
     }
 
     @Override
@@ -104,8 +104,8 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public Map<String, List<String>> getConnectionDetails() {
-        return requestHandler.execute(centralRequests.getConnectionDetails());
+    public Map<String, List<String>> getConnectionDetails(String user) {
+        return requestHandler.execute(centralRequests.getConnectionDetails(user));
     }
 
     @Override

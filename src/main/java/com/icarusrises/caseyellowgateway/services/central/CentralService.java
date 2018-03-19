@@ -14,17 +14,17 @@ import java.util.Map;
  * Created by dango on 6/3/17.
  */
 public interface CentralService {
-    void failedTest(FailedTestDetails failedTestDetails);
-    void saveTest(Test test) throws RequestFailureException;
-    void saveConnectionDetails(UserDetails userDetails);
+    void failedTest(FailedTestDetails failedTestDetails, String user);
+    void saveTest(Test test, String user) throws RequestFailureException;
+    void saveConnectionDetails(UserDetails userDetails, String user);
     boolean isUserExist(String userName);
-    GoogleVisionKey googleVisionKey();
-    SpeedTestMetaData getNextSpeedTestWebSite();
-    PreSignedUrl generatePreSignedUrl(String fileKey);
-    List<Test> getAllTests();
-    List<FileDownloadProperties> getNextUrls();
+    GoogleVisionKey googleVisionKey(String user);
+    SpeedTestMetaData getNextSpeedTestWebSite(String user);
+    PreSignedUrl generatePreSignedUrl(String fileKey, String user);
+    List<Test> getAllTests(String user);
+    List<FileDownloadProperties> getNextUrls(String user);
     Map<String, Long> countIPs();
-    Map<String, List<String>> getConnectionDetails();
+    Map<String, List<String>> getConnectionDetails(String user);
     Map<String, IdentifierDetails> createIdentifiersDetails();
     Map<String, IdentifierDetails> createIdentifiersDetails(String user);
     List<Test> getAllTestsByUser(String user);

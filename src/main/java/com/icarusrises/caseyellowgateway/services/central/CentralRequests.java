@@ -10,6 +10,8 @@ import retrofit2.http.*;
 import java.util.List;
 import java.util.Map;
 
+import static com.icarusrises.caseyellowgateway.controllers.CentralController.USER_HEADER;
+
 public interface CentralRequests {
 
     @Headers({
@@ -24,70 +26,70 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("central/next-web-site")
-    Call<SpeedTestMetaData> getNextSpeedTestWebSite();
+    Call<SpeedTestMetaData> getNextSpeedTestWebSite(@Header(USER_HEADER) String userHeader);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/next-urls")
-    Call<List<FileDownloadProperties>> getNextUrls();
+    Call<List<FileDownloadProperties>> getNextUrls(@Header(USER_HEADER) String userHeader);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @POST("central/save-test")
-    Call<Void> saveTest(@Body Test test);
+    Call<Void> saveTest(@Header(USER_HEADER) String userHeader, @Body Test test);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/all-tests")
-    Call<List<Test>> getAllTests();
+    Call<List<Test>> getAllTests(@Header(USER_HEADER) String userHeader);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/all-user-tests")
-    Call<List<Test>> getAllTests(@Query("user") String user);
+    Call<List<Test>> getAllTests(@Header(USER_HEADER) String userHeader, @Query("user") String user);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @POST("central/failed-test")
-    Call<Void> failedTest(@Body FailedTestDetails failedTestDetails);
+    Call<Void> failedTest(@Header(USER_HEADER) String userHeader, @Body FailedTestDetails failedTestDetails);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/pre-signed-url")
-    Call<PreSignedUrl> generatePreSignedUrl(@Query("file_key") String fileKey);
+    Call<PreSignedUrl> generatePreSignedUrl(@Header(USER_HEADER) String userHeader, @Query("file_key") String fileKey);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/google-vision-key")
-    Call<GoogleVisionKey> googleVisionKey();
+    Call<GoogleVisionKey> googleVisionKey(@Header(USER_HEADER) String userHeader);
 
     @Headers({
         "Accept: application/json",
         "Content-Type: application/json"
     })
     @GET("central/is-user-exist")
-    Call<Boolean> isUserExist(@Query("user_name")String userName);
+    Call<Boolean> isUserExist(@Header(USER_HEADER) String userHeader, @Query("user_name")String userName);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("central/connection-details")
-    Call<Map<String, List<String>>> getConnectionDetails();
+    Call<Map<String, List<String>>> getConnectionDetails(@Header(USER_HEADER) String userHeader);
 
 
     @Headers({
@@ -95,7 +97,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @POST("central/save-user-details")
-    Call<Void> saveConnectionDetails(@Body UserDetails userDetails);
+    Call<Void> saveConnectionDetails(@Header(USER_HEADER) String userHeader, @Body UserDetails userDetails);
 
     @Headers({
             "Accept: application/json",
