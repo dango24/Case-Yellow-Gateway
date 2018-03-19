@@ -32,7 +32,6 @@ public class CentralController {
         this.centralService = centralService;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/next-web-site",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,7 +40,6 @@ public class CentralController {
         return centralService.getNextSpeedTestWebSite();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/next-urls",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,10 +48,9 @@ public class CentralController {
         return centralService.getNextUrls();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/google-vision-key",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+                consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
     public GoogleVisionKey googleVisionKey(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received googleVisionKey GET request, from user: %s", user));
         return centralService.googleVisionKey();
@@ -67,30 +64,26 @@ public class CentralController {
         centralService.saveTest(test);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all-tests")
     public List<Test> getAllTests(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received getAllTests GET request, from user: %s", user));
         return centralService.getAllTests();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/all-user-tests",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+                consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Test> getAllUserTests(@RequestParam("user") String user) {
         log.info(String.format("Received getAllTestsByUser GET request for user: %s", user));
         return centralService.getAllTestsByUser(user);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/pre-signed-url")
     public PreSignedUrl generatePreSignedUrl(@RequestHeader(USER_HEADER)String user, @RequestParam("file_key")String fileKey) {
         log.info(String.format("Received generatePreSignedUrl GET request with fileName: %s, from user: %s", fileKey, user));
         return centralService.generatePreSignedUrl(fileKey);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/failed-test")
     public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) throws IOException {
         log.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
@@ -98,41 +91,10 @@ public class CentralController {
         centralService.failedTest(failedTestDetails);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/connection-details")
     private Map<String, List<String>> connectionDetails(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received connectionDetails GET request, from user: %s", user));
         return centralService.getConnectionDetails();
-    }
-
-    @GetMapping("/statistics/count-ips")
-    public Map<String, Long> countIPs(@RequestHeader(USER_HEADER)String user) {
-        log.info(String.format("Received countIPs GET request, from user: %s", user));
-        return centralService.countIPs();
-    }
-
-    @GetMapping("/statistics/identifiers-details")
-    public Map<String, IdentifierDetails> identifiersDetails(@RequestHeader(USER_HEADER)String user) {
-        log.info(String.format("Received identifiersDetails GET request, from user: %s", user));
-        return centralService.createIdentifiersDetails();
-    }
-
-    @GetMapping("/statistics/identifiers-details/{user}")
-    public Map<String, IdentifierDetails> identifiersDetailsByUser(@PathVariable("user")String user) {
-        log.info(String.format("Received identifiersDetails GET request for user: %s", user));
-        return centralService.createIdentifiersDetails(user);
-    }
-
-    @GetMapping("/statistics/user-last-test")
-    public String userLastTest(@RequestParam("user") String user) {
-        log.info(String.format("Received userLastTest GET request, for user: %s", user));
-        return centralService.userLastTest(user);
-    }
-
-    @GetMapping("/statistics/user-last-failed-test")
-    public String userLastFailedTest(@RequestParam("user") String user) {
-        log.info(String.format("Received userLastFailedTest GET request, for user: %s", user));
-        return centralService.userLastFailedTest(user);
     }
 
     @ResponseStatus(HttpStatus.OK)
