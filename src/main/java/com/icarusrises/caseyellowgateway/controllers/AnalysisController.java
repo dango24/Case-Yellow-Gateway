@@ -20,17 +20,30 @@ public class AnalysisController {
         this.analysisService = analysisService;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/ocr_request")
     public OcrResponse ocrRequest(@RequestHeader(USER_HEADER)String user, @RequestBody GoogleVisionRequest googleVisionRequest) {
         log.info(String.format("Received ocrRequest: %s, from user: %s", googleVisionRequest, user));
         return analysisService.ocrRequest(googleVisionRequest);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/classify-image")
     public ImageClassificationResult classifyImage(@RequestParam("identifier") String identifier, @RequestBody VisionRequest visionRequest) {
         log.info(String.format("Received classifyImage GET request for image: %s", visionRequest));
         return analysisService.classifyImage(identifier, visionRequest);
+    }
+
+    @PostMapping("/is-description-exist")
+    public DescriptionMatch isDescriptionExist(@RequestParam("identifier")String identifier,
+                                               @RequestParam("startTest")boolean startTest,
+                                               @RequestBody GoogleVisionRequest visionRequest) {
+
+        log.info("Received isDescriptionExist POST request for identifier: " + identifier);
+        return analysisService.isDescriptionExist(identifier, startTest, visionRequest);
+    }
+
+    @GetMapping("/parse-html")
+    public String retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestParam("htmlPayload") String htmlPayload) {
+        log.info("Received isDescriptionExist POST request for identifier: " + identifier);
+        return analysisService.retrieveResultFromHtml(identifier, htmlPayload);
     }
 }

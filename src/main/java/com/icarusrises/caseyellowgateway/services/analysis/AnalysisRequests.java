@@ -22,4 +22,20 @@ public interface AnalysisRequests {
     })
     @POST("classify-image")
     Call<ImageClassificationResult> classifyImage(@Query("identifier")String identifier, @Query("md5")String md5, @Body VisionRequest visionRequest);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("is-description-exist")
+    Call<DescriptionMatch> isDescriptionExist(@Query("identifier")String identifier,
+                                              @Query("startTest")boolean startTest,
+                                              @Body GoogleVisionRequest visionRequest);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("parse-html")
+    Call<String> retrieveResultFromHtml(@Query("identifier")String identifier, @Query("htmlPayload")String htmlPayload);
 }

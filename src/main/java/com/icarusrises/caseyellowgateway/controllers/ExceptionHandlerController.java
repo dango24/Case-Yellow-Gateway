@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.exceptions.InternalException;
+import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,6 +26,11 @@ public class ExceptionHandlerController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex)  {
         return buildErrorResponse(-1, ex.getMessage());
+    }
+
+    @ExceptionHandler(RequestFailureException.class)
+    public ResponseEntity<ErrorResponse> handleRequestFailureException(RequestFailureException ex)  {
+        return buildErrorResponse(ex.getErrorCode(), ex.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> buildErrorResponse(int errorCode, String message) {

@@ -41,4 +41,14 @@ public class AnalysisServiceImpl implements AnalysisService {
     public ImageClassificationResult classifyImage(String identifier, VisionRequest visionRequest) {
         return requestHandler.execute(analysisRequests.classifyImage(identifier, visionRequest.getImage().getMd5(), visionRequest));
     }
+
+    @Override
+    public DescriptionMatch isDescriptionExist(String identifier, boolean startTest, GoogleVisionRequest visionRequest) {
+        return requestHandler.execute(analysisRequests.isDescriptionExist(identifier, startTest, visionRequest));
+    }
+
+    @Override
+    public String retrieveResultFromHtml(String identifier, String htmlPayload) {
+        return requestHandler.execute(analysisRequests.retrieveResultFromHtml(identifier, htmlPayload));
+    }
 }
