@@ -1,8 +1,10 @@
 package com.icarusrises.caseyellowgateway.services.infrastrucre;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,8 +21,15 @@ public class RetrofitBuilder {
                                                 .client(okHttpClient)
                                                 .baseUrl(url);
 
-        retrofit.addConverterFactory(JacksonConverterFactory.create());
+        retrofit.addConverterFactory(GsonConverterFactory.create(buildLenientGson()));
 
         return retrofit;
+    }
+
+    private static Gson buildLenientGson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setLenient();
+
+        return gsonBuilder.create();
     }
 }
