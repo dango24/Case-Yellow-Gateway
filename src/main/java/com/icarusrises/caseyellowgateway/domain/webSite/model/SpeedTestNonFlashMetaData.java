@@ -1,64 +1,23 @@
 package com.icarusrises.caseyellowgateway.domain.webSite.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpeedTestNonFlashMetaData {
 
     private String buttonId;
     private String finishIdentifier;
+    private String retrieveResultFromPayloadFloat;
+    private String retrieveResultFromPayloadInteger;
     private List<String> finishTextIdentifier;
+    private List<String> finishIdentifierMbps;
     private List<String> finishIdentifierKbps;
     private String resultLocation;
     private String resultAttribute;
-
-    public SpeedTestNonFlashMetaData() {
-    }
-
-    public String getButtonId() {
-        return buttonId;
-    }
-
-    public void setButtonId(String buttonId) {
-        this.buttonId = buttonId;
-    }
-
-    public String getFinishIdentifier() {
-        return finishIdentifier;
-    }
-
-    public void setFinishIdentifier(String finishIdentifier) {
-        this.finishIdentifier = finishIdentifier;
-    }
-
-    public String getResultLocation() {
-        return resultLocation;
-    }
-
-    public void setResultLocation(String resultLocation) {
-        this.resultLocation = resultLocation;
-    }
-
-    public String getResultAttribute() {
-        return resultAttribute;
-    }
-
-    public void setResultAttribute(String resultAttribute) {
-        this.resultAttribute = resultAttribute;
-    }
-
-    public List<String> getFinishTextIdentifier() {
-        return finishTextIdentifier;
-    }
-
-    public void setFinishTextIdentifier(List<String> finishTextIdentifier) {
-        this.finishTextIdentifier = finishTextIdentifier;
-    }
-
-    public List<String> getFinishIdentifierKbps() {
-        return finishIdentifierKbps;
-    }
-
-    public void setFinishIdentifierKbps(List<String> finishIdentifierKbps) {
-        this.finishIdentifierKbps = finishIdentifierKbps;
-    }
 }

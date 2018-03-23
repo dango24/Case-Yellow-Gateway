@@ -48,7 +48,7 @@ public class AnalysisServiceImpl implements AnalysisService {
     }
 
     @Override
-    public String retrieveResultFromHtml(String identifier, String htmlPayload) {
+    public HTMLParserResult retrieveResultFromHtml(String identifier, HTMLPayload htmlPayload) {
         return requestHandler.execute(analysisRequests.retrieveResultFromHtml(identifier, htmlPayload));
     }
 }

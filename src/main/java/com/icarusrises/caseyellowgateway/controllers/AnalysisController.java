@@ -42,7 +42,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/parse-html")
-    public String retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestBody String htmlPayload) {
+    public HTMLParserResult retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestBody HTMLPayload htmlPayload) {
         log.info("Received isDescriptionExist POST request for identifier: " + identifier);
         return analysisService.retrieveResultFromHtml(identifier, htmlPayload);
     }
