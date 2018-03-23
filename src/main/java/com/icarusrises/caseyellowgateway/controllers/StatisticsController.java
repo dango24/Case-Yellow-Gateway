@@ -1,9 +1,11 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.test.model.IdentifierDetails;
+import com.icarusrises.caseyellowgateway.domain.test.model.UserLastTest;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -41,14 +43,27 @@ public class StatisticsController {
     }
 
     @GetMapping("/user-last-test")
-    public String userLastTest(@RequestParam("user") String user) {
+    public UserLastTest userLastTest(@RequestParam("user") String user) {
         log.info(String.format("Received userLastTest GET request, for user: %s", user));
         return centralService.userLastTest(user);
     }
 
     @GetMapping("/user-last-failed-test")
-    public String userLastFailedTest(@RequestParam("user") String user) {
+    public UserLastTest userLastFailedTest(@RequestParam("user") String user) {
         log.info(String.format("Received userLastFailedTest GET request, for user: %s", user));
         return centralService.userLastFailedTest(user);
+    }
+
+    @GetMapping("/count-user-tests")
+    public Map<String, Long> countUserTests() {
+        log.info("Received countIPs GET request");
+        return centralService.countUserTests();
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PostMapping("/notify-last-tests")
+    public void notifyLastTests() {
+        log.info(String.format("Received notifyLastTests POST request"));
+        centralService.notifyLastTests();
     }
 }

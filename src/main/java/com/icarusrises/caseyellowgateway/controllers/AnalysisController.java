@@ -41,8 +41,8 @@ public class AnalysisController {
         return analysisService.isDescriptionExist(identifier, startTest, visionRequest);
     }
 
-    @GetMapping("/parse-html")
-    public String retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestParam("htmlPayload") String htmlPayload) {
+    @PostMapping("/parse-html")
+    public String retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestBody String htmlPayload) {
         log.info("Received isDescriptionExist POST request for identifier: " + identifier);
         return analysisService.retrieveResultFromHtml(identifier, htmlPayload);
     }

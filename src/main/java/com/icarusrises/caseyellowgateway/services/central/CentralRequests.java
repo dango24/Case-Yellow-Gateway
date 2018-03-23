@@ -78,8 +78,8 @@ public interface CentralRequests {
     Call<GoogleVisionKey> googleVisionKey(@Header(USER_HEADER) String userHeader);
 
     @Headers({
-        "Accept: application/json",
-        "Content-Type: application/json"
+            "Accept: application/json",
+            "Content-Type: application/json"
     })
     @GET("central/is-user-exist")
     Call<Boolean> isUserExist(@Header(USER_HEADER) String userHeader, @Query("user_name")String userName);
@@ -125,12 +125,26 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("statistics/user-last-test")
-    Call<String> userLastTest(@Query("user") String user);
+    Call<UserLastTest> userLastTest(@Query("user") String user);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("statistics/user-last-failed-test")
-    Call<String> userLastFailedTest(@Query("user") String user);
+    Call<UserLastTest> userLastFailedTest(@Query("user") String user);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/count-user-tests")
+    Call<Map<String, Long>> countUserTests();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/notify-last-tests")
+    Call<Void> notifyLastTests();
 }

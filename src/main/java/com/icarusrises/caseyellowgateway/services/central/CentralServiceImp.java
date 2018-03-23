@@ -79,13 +79,23 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public String userLastTest(String user) {
+    public UserLastTest userLastTest(String user) {
         return requestHandler.execute(centralRequests.userLastTest(user));
     }
 
     @Override
-    public String userLastFailedTest(String user) {
+    public UserLastTest userLastFailedTest(String user) {
         return requestHandler.execute(centralRequests.userLastFailedTest(user));
+    }
+
+    @Override
+    public Map<String, Long> countUserTests() {
+        return requestHandler.execute(centralRequests.countUserTests());
+    }
+
+    @Override
+    public void notifyLastTests() {
+        requestHandler.execute(centralRequests.notifyLastTests());
     }
 
     @Override

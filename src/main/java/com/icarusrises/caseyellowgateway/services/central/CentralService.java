@@ -28,6 +28,8 @@ public interface CentralService {
     Map<String, IdentifierDetails> createIdentifiersDetails();
     Map<String, IdentifierDetails> createIdentifiersDetails(String user);
     List<Test> getAllTestsByUser(String user);
-    String userLastTest(String user);
-    String userLastFailedTest(String user);
+    UserLastTest userLastTest(String user);
+    UserLastTest userLastFailedTest(String user);
+    Map<String,Long> countUserTests();
+    void notifyLastTests();
 }

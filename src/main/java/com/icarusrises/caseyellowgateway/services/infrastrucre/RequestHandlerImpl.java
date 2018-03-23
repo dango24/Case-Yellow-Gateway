@@ -36,7 +36,6 @@ public class RequestHandlerImpl implements RequestHandler {
 
     @Override
     public <T> Map<String, String> getResponseHeaders(Call<T> request) throws RequestFailureException, IOException {
-        Map<String, String> headers;
         Response<T> response = request.execute();
 
         if (response.isSuccessful()) {
