@@ -145,6 +145,6 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
-    @GET("statistics/notify-last-tests")
+    @POST("statistics/notify-last-tests")
     Call<Void> notifyLastTests();
 }
