@@ -37,5 +37,5 @@ public interface AnalysisRequests {
             "Content-Type: application/json"
     })
     @POST("parse-html")
-    Call<HTMLParserResult> retrieveResultFromHtml(@Query("identifier")String identifier, @Body HTMLPayload htmlPayload);
+    Call<HTMLParserResult> retrieveResultFromHtml(@Query("identifier")String identifier, @Body HTMLParserRequest htmlParserRequest);
 }

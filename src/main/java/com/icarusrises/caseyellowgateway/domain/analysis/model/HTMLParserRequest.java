@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HTMLPayload {
+public class HTMLParserRequest {
 
     private String payload;
+    private GoogleVisionRequest googleVisionRequest;
 }
