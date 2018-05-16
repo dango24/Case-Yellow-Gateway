@@ -43,8 +43,8 @@ public class AnalysisServiceImpl implements AnalysisService {
     }
 
     @Override
-    public DescriptionMatch isDescriptionExist(String identifier, boolean startTest, GoogleVisionRequest visionRequest) {
-        return requestHandler.execute(analysisRequests.isDescriptionExist(identifier, startTest, visionRequest));
+    public DescriptionMatch isDescriptionExist(String user, String identifier, boolean startTest, GoogleVisionRequest visionRequest) {
+        return requestHandler.execute(analysisRequests.isDescriptionExist(user, identifier, startTest, visionRequest));
     }
 
     @Override

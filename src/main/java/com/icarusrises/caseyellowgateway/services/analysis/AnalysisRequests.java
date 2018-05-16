@@ -28,7 +28,8 @@ public interface AnalysisRequests {
             "Content-Type: application/json"
     })
     @POST("is-description-exist")
-    Call<DescriptionMatch> isDescriptionExist(@Query("identifier")String identifier,
+    Call<DescriptionMatch> isDescriptionExist(@Query("user")String user,
+                                              @Query("identifier")String identifier,
                                               @Query("startTest")boolean startTest,
                                               @Body GoogleVisionRequest visionRequest);
 
