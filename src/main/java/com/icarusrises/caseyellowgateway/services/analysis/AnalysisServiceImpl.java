@@ -51,4 +51,14 @@ public class AnalysisServiceImpl implements AnalysisService {
     public HTMLParserResult retrieveResultFromHtml(String identifier, HTMLParserRequest htmlParserRequest) {
         return requestHandler.execute(analysisRequests.retrieveResultFromHtml(identifier, htmlParserRequest));
     }
+
+    @Override
+    public void startButtonSuccessfullyFound(String user, String identifier, int x, int y, VisionRequest visionRequest) {
+        requestHandler.execute(analysisRequests.startButtonSuccessfullyFound(user, identifier, x, y, visionRequest));
+    }
+
+    @Override
+    public void startButtonFailed(String user, String identifier, int x, int y, VisionRequest visionRequest) {
+        requestHandler.execute(analysisRequests.startButtonFailed(user, identifier, x, y, visionRequest));
+    }
 }

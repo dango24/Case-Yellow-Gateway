@@ -2,10 +2,9 @@ package com.icarusrises.caseyellowgateway.services.analysis;
 
 import com.icarusrises.caseyellowgateway.domain.analysis.model.*;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
+
+import java.util.Map;
 
 public interface AnalysisRequests {
 
@@ -39,4 +38,26 @@ public interface AnalysisRequests {
     })
     @POST("parse-html")
     Call<HTMLParserResult> retrieveResultFromHtml(@Query("identifier")String identifier, @Body HTMLParserRequest htmlParserRequest);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("start-button-successfully-found")
+    Call<Void> startButtonSuccessfullyFound(@Query("user") String user,
+                                            @Query("identifier")String identifier,
+                                            @Query("x")int x,
+                                            @Query("y")int y,
+                                            @Body VisionRequest visionRequest);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("start-button-failed")
+    Call<Void> startButtonFailed(@Query("user") String user,
+                                 @Query("identifier")String identifier,
+                                 @Query("x")int x,
+                                 @Query("y")int y,
+                                 @Body VisionRequest visionRequest);
 }

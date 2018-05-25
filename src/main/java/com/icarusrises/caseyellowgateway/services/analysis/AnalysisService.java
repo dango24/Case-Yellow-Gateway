@@ -7,4 +7,6 @@ public interface AnalysisService {
     ImageClassificationResult classifyImage(String identifier, VisionRequest visionRequest);
     DescriptionMatch isDescriptionExist(String user, String identifier, boolean startTest, GoogleVisionRequest visionRequest);
     HTMLParserResult retrieveResultFromHtml(String identifier, HTMLParserRequest htmlParserRequest);
+    void startButtonSuccessfullyFound(String user, String identifier, int x, int y, VisionRequest visionRequest);
+    void startButtonFailed(String user, String identifier, int x, int y, VisionRequest visionRequest);
 }

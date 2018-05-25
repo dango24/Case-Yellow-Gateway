@@ -46,4 +46,25 @@ public class AnalysisController {
         log.info("Received isDescriptionExist POST request for identifier: " + identifier);
         return analysisService.retrieveResultFromHtml(identifier, htmlParserRequest);
     }
+
+    @PostMapping("/start-button-successfully-found")
+    public void startButtonSuccessfullyFound(@RequestHeader(USER_HEADER)String user,
+                                             @RequestParam("identifier")String identifier,
+                                             @RequestParam("x")int x,
+                                             @RequestParam("y")int y, @RequestBody VisionRequest visionRequest) {
+
+        log.info("Received startButtonSuccessfullyFound POST request for identifier: " + identifier);
+        analysisService.startButtonSuccessfullyFound(user, identifier, x, y, visionRequest);
+    }
+
+
+    @PostMapping("/start-button-failed")
+    public void startButtonFailed(@RequestHeader(USER_HEADER)String user,
+                                 @RequestParam("identifier")String identifier,
+                                 @RequestParam("x")int x,
+                                 @RequestParam("y")int y, @RequestBody VisionRequest visionRequest) {
+
+        log.info("Received startButtonFailed POST request for identifier: " + identifier);
+        analysisService.startButtonFailed(user, identifier, x, y, visionRequest);
+    }
 }
