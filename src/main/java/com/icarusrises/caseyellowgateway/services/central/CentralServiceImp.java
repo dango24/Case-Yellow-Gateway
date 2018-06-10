@@ -5,8 +5,6 @@ import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
-import com.icarusrises.caseyellowgateway.persistence.metrics.AverageMetric;
-import com.icarusrises.caseyellowgateway.persistence.metrics.AverageMetricRepository;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
 import com.timgroup.statsd.StatsDClient;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +26,6 @@ public class CentralServiceImp implements CentralService {
     private RequestHandler requestHandler;
     private CentralRequests centralRequests;
     private StatsDClient statsDClient;
-    private AverageMetricRepository averageMetricRepository;
 
     @PostConstruct
     public void init() {
@@ -40,10 +36,9 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Autowired
-    public CentralServiceImp(RequestHandler requestHandler, StatsDClient statsDClient, AverageMetricRepository averageMetricRepository) {
+    public CentralServiceImp(RequestHandler requestHandler, StatsDClient statsDClient) {
         this.requestHandler = requestHandler;
         this.statsDClient = statsDClient;
-        this.averageMetricRepository = averageMetricRepository;
     }
 
     @Override
@@ -55,19 +50,6 @@ public class CentralServiceImp implements CentralService {
     @Override
     public void saveTest(Test test, String user) throws RequestFailureException {
         requestHandler.execute(centralRequests.saveTest(user, test));
-
-        String testBucket = String.format("end-test.%s.%s", user, test.getSpeedTestWebsiteIdentifier());
-        long avg = test.getEndTime() - test.getStartTime();
-        statsDClient.increment(testBucket);
-        statsDClient.recordExecutionTime(testBucket, avg);
-
-//        AverageMetric averageMetric = averageMetricRepository.updateAverageMetric(testBucket, avg);
-//
-//        DecimalFormat df = new DecimalFormat("#.##");
-//        double time = Double.valueOf(df.format(averageMetric.getAvg()));
-//
-//        statsDClient.recordGaugeValue(testBucket)
-
     }
 
     @Override
@@ -154,6 +136,8 @@ public class CentralServiceImp implements CentralService {
     @Override
     public void startTest(StartTestDetails startTestDetails) {
         requestHandler.execute(centralRequests.startTest(startTestDetails));
+
         statsDClient.increment(String.format("start-test.%s.%s", startTestDetails.getUser(), startTestDetails.getIdentifier()));
+        startTestDetails.getUrls().forEach(url -> statsDClient.increment(String.format("start-sub-test.%s.%s.%s", startTestDetails.getUser(), startTestDetails.getIdentifier(), url)));
     }
 }
