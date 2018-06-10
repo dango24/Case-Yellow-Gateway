@@ -5,14 +5,18 @@ import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
+import com.icarusrises.caseyellowgateway.persistence.metrics.AverageMetric;
+import com.icarusrises.caseyellowgateway.persistence.metrics.AverageMetricRepository;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
+import com.timgroup.statsd.StatsDClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,8 @@ public class CentralServiceImp implements CentralService {
 
     private RequestHandler requestHandler;
     private CentralRequests centralRequests;
+    private StatsDClient statsDClient;
+    private AverageMetricRepository averageMetricRepository;
 
     @PostConstruct
     public void init() {
@@ -34,23 +40,40 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Autowired
-    public void setRequestHandler(RequestHandler requestHandler) {
+    public CentralServiceImp(RequestHandler requestHandler, StatsDClient statsDClient, AverageMetricRepository averageMetricRepository) {
         this.requestHandler = requestHandler;
+        this.statsDClient = statsDClient;
+        this.averageMetricRepository = averageMetricRepository;
     }
 
     @Override
     public void failedTest(FailedTestDetails failedTestDetails, String user) {
         requestHandler.execute(centralRequests.failedTest(user, failedTestDetails));
+        statsDClient.increment(String.format("failed-test.%s.%s", failedTestDetails.getUser(), failedTestDetails.getIdentifier()));
     }
 
     @Override
     public void saveTest(Test test, String user) throws RequestFailureException {
         requestHandler.execute(centralRequests.saveTest(user, test));
+
+        String testBucket = String.format("end-test.%s.%s", user, test.getSpeedTestWebsiteIdentifier());
+        long avg = test.getEndTime() - test.getStartTime();
+        statsDClient.increment(testBucket);
+        statsDClient.recordExecutionTime(testBucket, avg);
+
+//        AverageMetric averageMetric = averageMetricRepository.updateAverageMetric(testBucket, avg);
+//
+//        DecimalFormat df = new DecimalFormat("#.##");
+//        double time = Double.valueOf(df.format(averageMetric.getAvg()));
+//
+//        statsDClient.recordGaugeValue(testBucket)
+
     }
 
     @Override
     public void saveConnectionDetails(UserDetails userDetails, String user) {
         requestHandler.execute(centralRequests.saveConnectionDetails(user, userDetails));
+        statsDClient.increment(String.format("save-connection-details"));
     }
 
     @Override
@@ -126,5 +149,11 @@ public class CentralServiceImp implements CentralService {
     @Override
     public Map<String, IdentifierDetails> createIdentifiersDetails(String user) {
         return requestHandler.execute(centralRequests.createIdentifiersDetails(user));
+    }
+
+    @Override
+    public void startTest(StartTestDetails startTestDetails) {
+        requestHandler.execute(centralRequests.startTest(startTestDetails));
+        statsDClient.increment(String.format("start-test.%s.%s", startTestDetails.getUser(), startTestDetails.getIdentifier()));
     }
 }

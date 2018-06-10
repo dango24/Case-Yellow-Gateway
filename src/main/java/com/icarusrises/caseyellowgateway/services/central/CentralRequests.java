@@ -91,7 +91,6 @@ public interface CentralRequests {
     @GET("central/connection-details")
     Call<Map<String, List<String>>> getConnectionDetails(@Header(USER_HEADER) String userHeader);
 
-
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
@@ -147,4 +146,11 @@ public interface CentralRequests {
     })
     @POST("statistics/notify-last-tests")
     Call<Void> notifyLastTests();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("statistics/start-test")
+    Call<Void> startTest(@Body StartTestDetails startTestDetails);
 }

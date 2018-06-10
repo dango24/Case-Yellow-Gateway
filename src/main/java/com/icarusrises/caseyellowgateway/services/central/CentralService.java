@@ -17,6 +17,7 @@ public interface CentralService {
     void failedTest(FailedTestDetails failedTestDetails, String user);
     void saveTest(Test test, String user) throws RequestFailureException;
     void saveConnectionDetails(UserDetails userDetails, String user);
+    void startTest(StartTestDetails startTestDetails);
     boolean isUserExist(String userName);
     GoogleVisionKey googleVisionKey(String user);
     SpeedTestMetaData getNextSpeedTestWebSite(String user);

@@ -4,6 +4,7 @@ import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadPropertie
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
+import com.icarusrises.caseyellowgateway.persistence.metrics.AverageMetricRepository;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,12 @@ public class CentralController {
         log.info(String.format("Received saveConnectionDetails POST request with connectionDetails: %s, from user: %s", connectionDetails, user));
         UserDetails userDetails = new UserDetails(user, connectionDetails);
         centralService.saveConnectionDetails(userDetails, user);
+    }
+
+    @PostMapping("/start-test")
+    public void startTest(@RequestBody StartTestDetails startTestDetails) {
+        log.info(String.format("Received startTest POST request with start test details: %s", startTestDetails));
+        centralService.startTest(startTestDetails);
     }
 
 }

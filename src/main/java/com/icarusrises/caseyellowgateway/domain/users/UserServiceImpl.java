@@ -4,6 +4,7 @@ import com.icarusrises.caseyellowgateway.persistence.model.RoleDAO;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import com.icarusrises.caseyellowgateway.persistence.repository.RoleRepository;
 import com.icarusrises.caseyellowgateway.persistence.repository.UserRepository;
+import com.timgroup.statsd.StatsDClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
@@ -31,12 +33,18 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private StatsDClient statsDClient;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder,
+                           StatsDClient statsDClient) {
+
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.statsDClient = statsDClient;
     }
 
     @PostConstruct
@@ -55,6 +63,11 @@ public class UserServiceImpl implements UserService {
         addUser(userName, rawPassword);
     }
 
+    @Override
+    public List<UserDAO> getAllUsers() {
+        return userRepository.findAll();
+    }
+
     private void addUser(String userName, String rawPassword) {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         UserDAO userDAO = new UserDAO(userName, encodedPassword);
@@ -64,6 +77,7 @@ public class UserServiceImpl implements UserService {
 
         log.info(String.format("Add user: %s to DB", userName));
         userRepository.save(userDAO);
+        statsDClient.increment("user.added");
     }
 
     private void addAdminUser() {

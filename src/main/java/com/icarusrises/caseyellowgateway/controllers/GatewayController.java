@@ -1,11 +1,17 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
+import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -33,39 +39,24 @@ public class GatewayController {
         userService.addUser(adminToken, userSignInDetails.getUserName(), userSignInDetails.getRawPassword());
     }
 
+    @GetMapping("/get-users")
+    public List<UserDAO> getAllUsers() {
+        log.info(String.format("Received getAllUsers GET request"));
+        return userService.getAllUsers();
+    }
+
     private boolean validUserSignInDetails(UserSignInDetails userSignInDetails) {
         return StringUtils.isNotEmpty(userSignInDetails.getUserName())  &&
                StringUtils.isNotEmpty(userSignInDetails.getRawPassword());
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     private static class UserSignInDetails {
 
         private String userName;
         private String rawPassword;
-
-        public UserSignInDetails() {
-        }
-
-        public UserSignInDetails(String userName, String rawPassword) {
-            this.userName = userName;
-            this.rawPassword = rawPassword;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getRawPassword() {
-            return rawPassword;
-        }
-
-        public void setRawPassword(String rawPassword) {
-            this.rawPassword = rawPassword;
-        }
     }
 }
 

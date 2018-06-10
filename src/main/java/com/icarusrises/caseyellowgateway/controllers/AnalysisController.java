@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.analysis.model.*;
 import com.icarusrises.caseyellowgateway.services.analysis.AnalysisService;
+import com.timgroup.statsd.StatsDClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,12 @@ import static com.icarusrises.caseyellowgateway.controllers.CentralController.US
 public class AnalysisController {
 
     private AnalysisService analysisService;
+    private StatsDClient statsDClient;
 
     @Autowired
-    public AnalysisController(AnalysisService analysisService) {
+    public AnalysisController(AnalysisService analysisService, StatsDClient statsDClient) {
         this.analysisService = analysisService;
+        this.statsDClient = statsDClient;
     }
 
     @PostMapping("/ocr_request")
@@ -26,9 +29,12 @@ public class AnalysisController {
     }
 
     @PostMapping("/classify-image")
-    public ImageClassificationResult classifyImage(@RequestParam("identifier") String identifier, @RequestBody VisionRequest visionRequest) {
+    public ImageClassificationResult classifyImage(@RequestHeader(USER_HEADER)String user,
+                                                   @RequestParam("identifier") String identifier,
+                                                   @RequestBody VisionRequest visionRequest) {
+
         log.info(String.format("Received classifyImage GET request for image: %s", visionRequest));
-        return analysisService.classifyImage(identifier, visionRequest);
+        return analysisService.classifyImage(user, identifier, visionRequest);
     }
 
     @PostMapping("/is-description-exist")
@@ -42,9 +48,12 @@ public class AnalysisController {
     }
 
     @PostMapping("/parse-html")
-    public HTMLParserResult retrieveResultFromHtml(@RequestParam("identifier")String identifier, @RequestBody HTMLParserRequest htmlParserRequest) {
+    public HTMLParserResult retrieveResultFromHtml(@RequestHeader(USER_HEADER)String user,
+                                                   @RequestParam("identifier")String identifier,
+                                                   @RequestBody HTMLParserRequest htmlParserRequest) {
+
         log.info("Received isDescriptionExist POST request for identifier: " + identifier);
-        return analysisService.retrieveResultFromHtml(identifier, htmlParserRequest);
+        return analysisService.retrieveResultFromHtml(user, identifier, htmlParserRequest);
     }
 
     @PostMapping("/start-button-successfully-found")
