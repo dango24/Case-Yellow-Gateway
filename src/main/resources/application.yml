@@ -3,7 +3,7 @@ spring.profiles.active: prod
 central_url: http://localhost:9080
 analysis_url: http://localhost:7008/analysis/
 
-tokenAuthenticationKey: bolshit
+token_authentication_key: bolshit
 
 # Logger
 log.dir: /home/ec2-user/case-yellow/logs

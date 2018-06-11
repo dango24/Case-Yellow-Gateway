@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private static final String ADMIN_USER = "admin";
 
-    @Value("${tokenAuthenticationKey}")
+    @Value("${token_authentication_key}")
     private String tokenAuthenticationKey;
 
     private UserRepository userRepository;
