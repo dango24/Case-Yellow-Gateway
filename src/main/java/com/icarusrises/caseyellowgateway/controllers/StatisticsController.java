@@ -31,15 +31,17 @@ public class StatisticsController {
     }
 
     @GetMapping("/identifiers-details")
-    public Map<String, IdentifierDetails> identifiersDetails(@RequestHeader(USER_HEADER)String user) {
+    public Map<String, IdentifierDetails> identifiersDetails(@RequestHeader(USER_HEADER)String user,
+                                                             @RequestParam(value = "filter", required = false)  String filter) {
         log.info(String.format("Received identifiersDetails GET request, from user: %s", user));
-        return centralService.createIdentifiersDetails();
+        return centralService.createIdentifiersDetails(filter);
     }
 
     @GetMapping("/identifiers-details/{user}")
-    public Map<String, IdentifierDetails> identifiersDetailsByUser(@PathVariable("user")String user) {
+    public Map<String, IdentifierDetails> identifiersDetailsByUser(@PathVariable("user")String user,
+                                                                   @RequestParam(value = "filter", required = false)  String filter) {
         log.info(String.format("Received identifiersDetails GET request for user: %s", user));
-        return centralService.createIdentifiersDetails(user);
+        return centralService.createIdentifiersDetails(user, filter);
     }
 
     @GetMapping("/user-last-test")

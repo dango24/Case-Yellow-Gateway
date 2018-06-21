@@ -124,13 +124,13 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public Map<String, IdentifierDetails> createIdentifiersDetails() {
-        return requestHandler.execute(centralRequests.createIdentifiersDetails());
+    public Map<String, IdentifierDetails> createIdentifiersDetails(String filter) {
+        return requestHandler.execute(centralRequests.createIdentifiersDetails(filter));
     }
 
     @Override
-    public Map<String, IdentifierDetails> createIdentifiersDetails(String user) {
-        return requestHandler.execute(centralRequests.createIdentifiersDetails(user));
+    public Map<String, IdentifierDetails> createIdentifiersDetails(String user, String filter) {
+        return requestHandler.execute(centralRequests.createIdentifiersDetails(user, filter));
     }
 
     @Override

@@ -26,8 +26,8 @@ public interface CentralService {
     List<FileDownloadProperties> getNextUrls(String user);
     Map<String, Long> countIPs();
     Map<String, List<String>> getConnectionDetails(String user);
-    Map<String, IdentifierDetails> createIdentifiersDetails();
-    Map<String, IdentifierDetails> createIdentifiersDetails(String user);
+    Map<String, IdentifierDetails> createIdentifiersDetails(String filter);
+    Map<String, IdentifierDetails> createIdentifiersDetails(String user, String filter);
     List<Test> getAllTestsByUser(String user);
     UserLastTest userLastTest(String user);
     UserLastTest userLastFailedTest(String user);

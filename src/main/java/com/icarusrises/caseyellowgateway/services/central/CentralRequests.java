@@ -110,14 +110,14 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("statistics/identifiers-details")
-    Call<Map<String, IdentifierDetails>> createIdentifiersDetails();
+    Call<Map<String, IdentifierDetails>> createIdentifiersDetails(@Query("filter") String filter);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("statistics/identifiers-details/{user}")
-    Call<Map<String, IdentifierDetails>> createIdentifiersDetails(@Path("user") String user);
+    Call<Map<String, IdentifierDetails>> createIdentifiersDetails(@Path("user") String user, @Query("filter") String filter);
 
     @Headers({
             "Accept: application/json",
