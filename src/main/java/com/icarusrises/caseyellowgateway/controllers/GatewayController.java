@@ -39,12 +39,6 @@ public class GatewayController {
         userService.addUser(adminToken, userSignInDetails.getUserName(), userSignInDetails.getRawPassword());
     }
 
-    @GetMapping("/get-users")
-    public List<UserDAO> getAllUsers() {
-        log.info(String.format("Received getAllUsers GET request"));
-        return userService.getAllUsers();
-    }
-
     private boolean validUserSignInDetails(UserSignInDetails userSignInDetails) {
         return StringUtils.isNotEmpty(userSignInDetails.getUserName())  &&
                StringUtils.isNotEmpty(userSignInDetails.getRawPassword());

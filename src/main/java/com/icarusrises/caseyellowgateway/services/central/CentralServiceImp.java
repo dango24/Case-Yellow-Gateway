@@ -2,9 +2,11 @@ package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
+import com.icarusrises.caseyellowgateway.domain.users.UserService;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
+import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
 import com.timgroup.statsd.StatsDClient;
@@ -16,6 +18,7 @@ import retrofit2.Retrofit;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CentralServiceImp implements CentralService {
@@ -24,6 +27,7 @@ public class CentralServiceImp implements CentralService {
     private String centralUrl;
 
     private RequestHandler requestHandler;
+    private UserService userService;
     private CentralRequests centralRequests;
     private StatsDClient statsDClient;
 
@@ -36,9 +40,10 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Autowired
-    public CentralServiceImp(RequestHandler requestHandler, StatsDClient statsDClient) {
+    public CentralServiceImp(RequestHandler requestHandler, StatsDClient statsDClient, UserService userService) {
         this.requestHandler = requestHandler;
         this.statsDClient = statsDClient;
+        this.userService = userService;
     }
 
     @Override
@@ -100,7 +105,12 @@ public class CentralServiceImp implements CentralService {
 
     @Override
     public void notifyLastTests() {
-        requestHandler.execute(centralRequests.notifyLastTests());
+        List<UserDAO> users = userService.getAllUsers()
+                                         .stream()
+                                         .filter(UserDAO::isEnabled)
+                                         .collect(Collectors.toList());
+
+        requestHandler.execute(centralRequests.notifyLastTests(users));
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadPropertie
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
+import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -145,7 +146,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @POST("statistics/notify-last-tests")
-    Call<Void> notifyLastTests();
+    Call<Void> notifyLastTests(@Body List<UserDAO> users);
 
     @Headers({
             "Accept: application/json",

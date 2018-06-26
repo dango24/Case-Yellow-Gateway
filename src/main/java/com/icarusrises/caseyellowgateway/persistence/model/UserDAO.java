@@ -22,6 +22,7 @@ public class UserDAO {
     private String encodedPassword;
     private boolean enabled;
     private long dateCreated;
+    private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleDAO> roles;
