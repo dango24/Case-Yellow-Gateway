@@ -20,6 +20,7 @@ public class Test {
     private String user;
     private String isp;
     private String clientVersion;
+    private String computerIdentifier;
     private Long startTime;
     private Long endTime;
     private SystemInfo systemInfo;
