@@ -33,4 +33,6 @@ public interface CentralService {
     UserLastTest userLastFailedTest(String user);
     Map<String,Long> countUserTests();
     void notifyLastTests();
+    UsersLastTest usersLastTest(int lastTimeInHours);
+    double getUserMeanRate(String user);
 }

@@ -114,6 +114,22 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public UsersLastTest usersLastTest(int lastTimeInHours) {
+        List<UserDAO> users =
+                userService.getAllUsers()
+                           .stream()
+                           .filter(UserDAO::isEnabled)
+                           .collect(Collectors.toList());
+
+        return requestHandler.execute(centralRequests.usersLastTest(lastTimeInHours, users));
+    }
+
+    @Override
+    public double getUserMeanRate(String user) {
+        return requestHandler.execute(centralRequests.getUserMeanRate(user));
+    }
+
+    @Override
     public PreSignedUrl generatePreSignedUrl(String fileKey, String user) {
         return requestHandler.execute(centralRequests.generatePreSignedUrl(user, fileKey));
     }

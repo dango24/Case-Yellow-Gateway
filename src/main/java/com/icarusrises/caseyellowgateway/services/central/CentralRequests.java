@@ -154,4 +154,18 @@ public interface CentralRequests {
     })
     @POST("statistics/start-test")
     Call<Void> startTest(@Body StartTestDetails startTestDetails);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("statistics/users-last-test")
+    Call<UsersLastTest> usersLastTest(@Query("period") int lastTimeInHours, @Body List<UserDAO> users);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/user-mean-rate")
+    Call<Double> getUserMeanRate(@Query("user") String user);
 }
