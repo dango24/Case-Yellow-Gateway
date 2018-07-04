@@ -125,7 +125,7 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public double getUserMeanRate(String user) {
+    public Map<String, String> getUserMeanRate(String user) {
         return requestHandler.execute(centralRequests.getUserMeanRate(user));
     }
 

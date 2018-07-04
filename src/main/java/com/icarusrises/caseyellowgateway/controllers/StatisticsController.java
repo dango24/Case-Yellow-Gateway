@@ -80,7 +80,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/user-mean-rate/{user}")
-    public double userMeanRate(@PathVariable("user") String user) {
+    public Map<String, String> userMeanRate(@PathVariable("user") String user) {
         log.info(String.format("Received userMeanRate GET request for user %s", user));
         return centralService.getUserMeanRate(user);
     }

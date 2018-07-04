@@ -167,5 +167,5 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("statistics/user-mean-rate")
-    Call<Double> getUserMeanRate(@Query("user") String user);
+    Call<Map<String, String>> getUserMeanRate(@Query("user") String user);
 }

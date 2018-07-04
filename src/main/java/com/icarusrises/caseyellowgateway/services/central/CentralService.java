@@ -34,5 +34,5 @@ public interface CentralService {
     Map<String,Long> countUserTests();
     void notifyLastTests();
     UsersLastTest usersLastTest(int lastTimeInHours);
-    double getUserMeanRate(String user);
+    Map<String, String> getUserMeanRate(String user);
 }
