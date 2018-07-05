@@ -168,4 +168,11 @@ public interface CentralRequests {
     })
     @GET("statistics/user-mean-rate")
     Call<Map<String, String>> getUserMeanRate(@Query("user") String user);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("statistics/file-download-rate-mean")
+    Call<Map<String, String>> meanFileDownloadRate();
 }

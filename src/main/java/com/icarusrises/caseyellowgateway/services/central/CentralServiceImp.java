@@ -130,6 +130,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public Map<String, String> meanFileDownloadRate() {
+        return requestHandler.execute(centralRequests.meanFileDownloadRate());
+    }
+
+    @Override
     public PreSignedUrl generatePreSignedUrl(String fileKey, String user) {
         return requestHandler.execute(centralRequests.generatePreSignedUrl(user, fileKey));
     }

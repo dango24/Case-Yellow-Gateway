@@ -85,6 +85,12 @@ public class StatisticsController {
         return centralService.getUserMeanRate(user);
     }
 
+    @GetMapping("/file-download-rate-mean")
+    public Map<String, String> fileDownloadRateMean() {
+        log.info("Received fileDownloadRateMean GET request");
+        return centralService.meanFileDownloadRate();
+    }
+
     @GetMapping("/users-last-test")
     public UsersLastTestReport usersLastTest(@RequestParam("period") int lastTimeInHours) {
         log.info(String.format("Received usersLastTest GET request with last time in hours %s", lastTimeInHours));
