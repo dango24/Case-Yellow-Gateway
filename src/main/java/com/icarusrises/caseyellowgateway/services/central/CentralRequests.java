@@ -47,6 +47,13 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
+    @POST("central/investigate-test-ratio")
+    Call<Void> investigateSuspiciousTestRatio(@Query("outliar_ratio") String outliarRatio, @Query("hours")String hours);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     @GET("central/all-tests")
     Call<List<Test>> getAllTests(@Header(USER_HEADER) String userHeader);
 

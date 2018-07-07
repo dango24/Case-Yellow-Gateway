@@ -114,6 +114,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public void investigateSuspiciousTestRatio(String outliarRatio, String hours) {
+        requestHandler.execute(centralRequests.investigateSuspiciousTestRatio(outliarRatio, hours));
+    }
+
+    @Override
     public UsersLastTest usersLastTest(int lastTimeInHours) {
         List<UserDAO> users =
                 userService.getAllUsers()

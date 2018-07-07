@@ -111,4 +111,11 @@ public class CentralController {
         centralService.startTest(startTestDetails);
     }
 
+    @PostMapping("/investigate-test-ratio")
+    public void investigateSuspiciousTestRatio(@RequestParam("outliar_ratio")String outliarRatio,
+                                               @RequestParam("hours")String hours) {
+        log.info(String.format("Received investigate-test-ratio POST request with outliarRatio: %s, hours: %s", outliarRatio, hours));
+        centralService.investigateSuspiciousTestRatio(outliarRatio, hours);
+    }
+
 }

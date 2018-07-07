@@ -36,4 +36,5 @@ public interface CentralService {
     UsersLastTest usersLastTest(int lastTimeInHours);
     Map<String, String> getUserMeanRate(String user);
     Map<String,String> meanFileDownloadRate();
+    void investigateSuspiciousTestRatio(String outliarRatio, String hours);
 }
