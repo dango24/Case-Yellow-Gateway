@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class UserDAO {
     private boolean enabled;
     private long dateCreated;
     private String phone;
+
+    @Column(name = "has_computer")
+    @JsonProperty("has_computer")
+    private Boolean hasComputer;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleDAO> roles;
