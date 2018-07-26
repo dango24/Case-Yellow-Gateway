@@ -189,4 +189,12 @@ public interface CentralRequests {
     })
     @POST("statistics/users-statistics")
     Call<Void> usersStatistics(@Body List<UserDAO> users);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("statistics/build-all-tests")
+    Call<Void> buildAllTests();
+
 }

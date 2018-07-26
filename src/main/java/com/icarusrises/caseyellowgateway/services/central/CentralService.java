@@ -38,4 +38,5 @@ public interface CentralService {
     Map<String,String> meanFileDownloadRate();
     void investigateSuspiciousTestRatio(String outliarRatio, String hours);
     void usersStatistics();
+    void buildAllTests();
 }

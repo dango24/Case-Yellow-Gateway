@@ -131,6 +131,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public void buildAllTests() {
+        requestHandler.execute(centralRequests.buildAllTests());
+    }
+
+    @Override
     public UsersLastTest usersLastTest(int lastTimeInHours) {
         List<UserDAO> users =
                 userService.getAllUsers()

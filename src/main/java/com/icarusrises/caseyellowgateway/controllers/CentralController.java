@@ -64,6 +64,12 @@ public class CentralController {
         centralService.saveTest(test, user);
     }
 
+    @PostMapping("/build-all-tests")
+    public void buildAllTests() {
+        log.info(String.format("Received buildAllTests POST request with users"));
+        centralService.buildAllTests();
+    }
+
     @GetMapping("/all-tests")
     public List<Test> getAllTests(@RequestHeader(USER_HEADER)String user) {
         log.info(String.format("Received getAllTests GET request, from user: %s", user));
