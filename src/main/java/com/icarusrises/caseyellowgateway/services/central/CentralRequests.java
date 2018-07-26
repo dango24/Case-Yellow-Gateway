@@ -182,4 +182,11 @@ public interface CentralRequests {
     })
     @GET("statistics/file-download-rate-mean")
     Call<Map<String, String>> meanFileDownloadRate();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("statistics/users-statistics")
+    Call<Void> usersStatistics(@Body List<UserDAO> users);
 }

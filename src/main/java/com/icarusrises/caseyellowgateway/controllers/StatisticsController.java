@@ -99,6 +99,12 @@ public class StatisticsController {
         return new UsersLastTestReport(usersLastTest);
     }
 
+    @PostMapping("/users-statistics")
+    public void usersStatistics() {
+        log.info("Received usersStatistics POST request with users");
+        centralService.usersStatistics();
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

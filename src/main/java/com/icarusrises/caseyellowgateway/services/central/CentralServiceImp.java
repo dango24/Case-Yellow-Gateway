@@ -105,10 +105,11 @@ public class CentralServiceImp implements CentralService {
 
     @Override
     public void notifyLastTests() {
-        List<UserDAO> users = userService.getAllUsers()
-                                         .stream()
-                                         .filter(UserDAO::isEnabled)
-                                         .collect(Collectors.toList());
+        List<UserDAO> users =
+                userService.getAllUsers()
+                           .stream()
+                           .filter(UserDAO::isEnabled)
+                           .collect(Collectors.toList());
 
         requestHandler.execute(centralRequests.notifyLastTests(users));
     }
@@ -116,6 +117,17 @@ public class CentralServiceImp implements CentralService {
     @Override
     public void investigateSuspiciousTestRatio(String outliarRatio, String hours) {
         requestHandler.execute(centralRequests.investigateSuspiciousTestRatio(outliarRatio, hours));
+    }
+
+    @Override
+    public void usersStatistics() {
+        List<UserDAO> users =
+                userService.getAllUsers()
+                           .stream()
+                           .filter(UserDAO::isEnabled)
+                           .collect(Collectors.toList());
+
+        requestHandler.execute(centralRequests.usersStatistics(users));
     }
 
     @Override
