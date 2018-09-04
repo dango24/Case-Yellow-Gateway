@@ -15,7 +15,7 @@ public class AnalysisController {
     private AnalysisService analysisService;
 
     @Autowired
-    public AnalysisController(AnalysisService analysisServic) {
+    public AnalysisController(AnalysisService analysisService) {
         this.analysisService = analysisService;
     }
 
@@ -49,7 +49,7 @@ public class AnalysisController {
                                                    @RequestParam("identifier")String identifier,
                                                    @RequestBody HTMLParserRequest htmlParserRequest) {
 
-        log.info("Received isDescriptionExist POST request for identifier: " + identifier);
+        log.info("Received retrieve result from html POST request for identifier: " + identifier);
         return analysisService.retrieveResultFromHtml(user, identifier, htmlParserRequest);
     }
 

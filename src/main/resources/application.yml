@@ -1,7 +1,11 @@
 server.port: 8008
 spring.profiles.active: prod
-central_url: http://localhost:9080
-analysis_url: http://localhost:7008/analysis/
+
+# Services hosts
+#central_url: http://localhost:9080
+#analysis_url: http://localhost:7008/analysis/
+central_url: http://internal-cy-internal-load-balancer-1608404301.eu-central-1.elb.amazonaws.com:9080
+analysis_url: http://internal-cy-internal-load-balancer-1608404301.eu-central-1.elb.amazonaws.com:7008/analysis/
 
 token_authentication_key: bolshit
 

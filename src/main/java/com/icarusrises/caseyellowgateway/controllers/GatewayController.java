@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,12 @@ public class GatewayController {
     @Autowired
     public GatewayController(UserService userService) {
         this.userService = userService;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/health")
+    public String health() {
+        return "we are all good";
     }
 
     @PutMapping("/add-user")
