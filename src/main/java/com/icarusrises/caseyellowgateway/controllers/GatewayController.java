@@ -1,7 +1,6 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
-import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
