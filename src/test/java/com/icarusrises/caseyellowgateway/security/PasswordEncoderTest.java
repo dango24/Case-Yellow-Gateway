@@ -41,7 +41,7 @@ public class PasswordEncoderTest {
         String pass = "00";
         String passEncoded = passwordEncoder.encode(pass);
 
-        assertTrue(passEncoded.length() == 60);
+        assertTrue(passEncoded.length() == 61);
     }
 
     @Test
