@@ -1,15 +1,15 @@
 version: 0.0
 os: linux
 files:
-  - source: case-yellow-gateway.jar
+  - source: target/case-yellow-gateway.jar
     destination: /home/ec2-user/case-yellow
 
 hooks:
   AfterInstall:
-    - location: stop.sh
+    - location: scripts/stop.sh
       timeout: 180
       runas: ec2-user
   ApplicationStart:
-    - location: start.sh
+    - location: scripts/start.sh
       timeout: 180
       runas: ec2-user
