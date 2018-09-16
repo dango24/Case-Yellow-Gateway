@@ -14,6 +14,9 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - zip -r cy-gateway-archive.zip target/case-yellow-gateway.jar appspec.yml scripts/start.sh scripts/stop.sh
+      - aws s3 cp cy-gateway-archive.zip s3://cy-codebuild/cy-gateway-build-artifact
+
 artifacts:
   files:
     - target/case-yellow-gateway.jar
