@@ -1,21 +1,19 @@
 version: 0.0
 os: linux
+
 files:
   - source: target/case-yellow-gateway.jar
     destination: /home/ec2-user/case-yellow
-    permissions:
-      - object: /home/ec2-user/case-yellow/case-yellow-gateway.jar
-        owner: ec2-user
 
 hooks:
   BeforeInstall:
     - location: scripts/delete_app_binary.sh
-      timeout: 180
+      timeout: 120
       runas: ec2-user
 
   AfterInstall:
     - location: scripts/stop_app_process.sh
-      timeout: 180
+      timeout: 120
       runas: ec2-user
 
   ApplicationStart:
