@@ -11,11 +11,14 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn clean install
+      - echo Build completed on `date`
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Archive cy-gateway
       - zip -r cy-gateway-archive.zip target/case-yellow-gateway.jar appspec.yml scripts/*
+      - echo Uplaod cy-gateway-archive to S3
       - aws s3 cp cy-gateway-archive.zip s3://cy-codebuild/cy-gateway-build-artifact/
+      - echo Successfully uplaoded cy-gateway-archive to S3
 
 artifacts:
   files:
