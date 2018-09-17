@@ -3,6 +3,7 @@ os: linux
 files:
   - source: target/case-yellow-gateway.jar
     destination: /home/ec2-user/case-yellow
+    runas: ec2-user
 
 hooks:
   BeforeInstall:
