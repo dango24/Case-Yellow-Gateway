@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd /home/ec2-user/case-yellow/
-sudo -b nohup java -jar case-yellow-gateway.jar
+java -jar case-yellow-gateway.jar > /dev/null 2> /dev/null < /dev/null &
