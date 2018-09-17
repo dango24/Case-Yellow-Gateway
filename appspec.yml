@@ -8,11 +8,14 @@ hooks:
   BeforeInstall:
     - location: scripts/delete_app_binary.sh
       timeout: 180
+      runas: ec2-user
 
   AfterInstall:
     - location: scripts/stop_app_process.sh
       timeout: 180
+      runas: ec2-user
 
   ApplicationStart:
     - location: scripts/start_app_process.sh
       timeout: 180
+      runas: ec2-user
