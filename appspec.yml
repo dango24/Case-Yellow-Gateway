@@ -6,13 +6,13 @@ files:
 
 hooks:
   BeforeInstall:
-    - location: scripts/before.sh
+    - location: scripts/delete_app_binary.sh
       timeout: 180
 
   AfterInstall:
-    - location: scripts/stop.sh
+    - location: scripts/stop_app_process.sh
       timeout: 180
 
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: scripts/start_app_process.sh
       timeout: 180
