@@ -23,5 +23,3 @@ phases:
 artifacts:
   files:
     - target/case-yellow-gateway.jar
-    - appspec.yml
-    - scripts/*
