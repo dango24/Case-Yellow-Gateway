@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-            .antMatchers("/login", "/gateway/health").permitAll()
+            .antMatchers("/login", "/gateway/health", "/gateway/analysis-health", "/gateway/central-health").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JWTLoginFilter("/login", centralService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
