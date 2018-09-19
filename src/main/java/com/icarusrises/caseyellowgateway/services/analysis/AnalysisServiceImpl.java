@@ -36,6 +36,11 @@ public class AnalysisServiceImpl implements AnalysisService {
     }
 
     @Override
+    public String healthCheck() {
+        return requestHandler.execute(analysisRequests.healthCheck());
+    }
+
+    @Override
     public OcrResponse ocrRequest(GoogleVisionRequest googleVisionRequest) {
         return requestHandler.execute(analysisRequests.ocrRequest(googleVisionRequest));
     }

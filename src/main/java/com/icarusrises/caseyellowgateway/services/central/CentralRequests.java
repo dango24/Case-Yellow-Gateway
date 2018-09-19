@@ -19,6 +19,13 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
+    @GET("central/health")
+    Call<String> healthCheck();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     @GET("central/additional-time")
     Call<Integer> additionalTimeForWebTestToFinishInSec();
 
@@ -196,5 +203,4 @@ public interface CentralRequests {
     })
     @POST("statistics/build-all-tests")
     Call<Void> buildAllTests();
-
 }

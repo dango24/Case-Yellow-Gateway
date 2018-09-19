@@ -47,6 +47,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public String healthCheck() {
+        return requestHandler.execute(centralRequests.healthCheck());
+    }
+
+    @Override
     public void failedTest(FailedTestDetails failedTestDetails, String user) {
         requestHandler.execute(centralRequests.failedTest(user, failedTestDetails));
         statsDClient.increment(String.format("failed-test.%s.%s", failedTestDetails.getUser(), failedTestDetails.getIdentifier()));

@@ -14,6 +14,7 @@ import java.util.Map;
  * Created by dango on 6/3/17.
  */
 public interface CentralService {
+    String healthCheck();
     void failedTest(FailedTestDetails failedTestDetails, String user);
     void saveTest(Test test, String user) throws RequestFailureException;
     void saveConnectionDetails(UserDetails userDetails, String user);

@@ -4,9 +4,14 @@ import com.icarusrises.caseyellowgateway.domain.analysis.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.util.Map;
-
 public interface AnalysisRequests {
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("health")
+    Call<String> healthCheck();
 
     @Headers({
             "Accept: application/json",

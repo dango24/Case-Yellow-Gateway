@@ -1,6 +1,8 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
+import com.icarusrises.caseyellowgateway.services.analysis.AnalysisService;
+import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,16 +24,32 @@ public class GatewayController {
     private final static String ADMIN_TOKEN = "admin_token";
 
     private UserService userService;
+    private CentralService centralService;
+    private AnalysisService analysisService;
 
     @Autowired
-    public GatewayController(UserService userService) {
+    public GatewayController(UserService userService, CentralService centralService, AnalysisService analysisService) {
         this.userService = userService;
+        this.centralService = centralService;
+        this.analysisService = analysisService;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/health")
     public String health() {
         return "From the darkness we shall rise";
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/analysis-health")
+    public String analysisHealth() {
+        return analysisService.healthCheck();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/central-health")
+    public String centralHealth() {
+        return centralService.healthCheck();
     }
 
     @PutMapping("/add-user")
