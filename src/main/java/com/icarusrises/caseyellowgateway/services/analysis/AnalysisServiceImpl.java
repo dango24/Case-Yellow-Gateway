@@ -37,7 +37,8 @@ public class AnalysisServiceImpl implements AnalysisService {
 
     @Override
     public String healthCheck() {
-        return requestHandler.execute(analysisRequests.healthCheck());
+        Payload payload = requestHandler.execute(analysisRequests.healthCheck());
+        return payload.getData();
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.exceptions.RequestFailureException;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
+import com.icarusrises.caseyellowgateway.services.analysis.Payload;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RequestHandler;
 import com.icarusrises.caseyellowgateway.services.infrastrucre.RetrofitBuilder;
 import com.timgroup.statsd.StatsDClient;
@@ -48,7 +49,9 @@ public class CentralServiceImp implements CentralService {
 
     @Override
     public String healthCheck() {
-        return requestHandler.execute(centralRequests.healthCheck());
+        Payload payload = requestHandler.execute(centralRequests.healthCheck());
+
+        return payload.getData();
     }
 
     @Override

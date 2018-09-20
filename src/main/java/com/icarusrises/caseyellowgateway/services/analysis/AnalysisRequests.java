@@ -11,7 +11,7 @@ public interface AnalysisRequests {
             "Content-Type: application/json"
     })
     @GET("health")
-    Call<String> healthCheck();
+    Call<Payload> healthCheck();
 
     @Headers({
             "Accept: application/json",

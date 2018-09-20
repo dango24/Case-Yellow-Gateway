@@ -5,6 +5,7 @@ import com.icarusrises.caseyellowgateway.domain.test.model.*;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
+import com.icarusrises.caseyellowgateway.services.analysis.Payload;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -20,7 +21,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @GET("central/health")
-    Call<String> healthCheck();
+    Call<Payload> healthCheck();
 
     @Headers({
             "Accept: application/json",
