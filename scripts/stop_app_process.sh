@@ -1,6 +1,10 @@
 #!/bin/sh
 
-PID="$(ps ax o pid,command | grep 'case-yellow' | grep -v grep | awk '{print $1}')"
-echo $PID
+GATEWAY_PID="$(ps ax o pid,command | grep 'case-yellow-gateway' | grep -v grep | awk '{print $1}')"
+echo GATEWAY_PID
 
-kill -9 "${PID}"
+WEB_PID="$(ps ax o pid,command | grep 'case-yellow-web' | grep -v grep | awk '{print $1}')"
+echo WEB_PID
+
+kill -9 "${GATEWAY_PID}"
+kill -9 "${WEB_PID}"
