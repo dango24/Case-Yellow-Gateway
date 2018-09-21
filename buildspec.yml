@@ -15,7 +15,7 @@ phases:
   post_build:
     commands:
       - echo Archive cy-gateway
-      - zip -r cy-gateway-archive.zip target/case-yellow-gateway.jar appspec.yml scripts/*
+      - zip -r cy-gateway-archive.zip target/case-yellow-gateway.jar binaries/case-yellow-web.jar appspec.yml scripts/*
       - echo Uplaod cy-gateway-archive to S3
       - aws s3 cp cy-gateway-archive.zip s3://cy-codebuild/cy-gateway-build-artifact/
       - echo Successfully uplaoded cy-gateway-archive to S3
@@ -23,5 +23,6 @@ phases:
 artifacts:
   files:
     - target/case-yellow-gateway.jar
+    - binaries/case-yellow-web.jar
     - appspec.yml
     - scripts/*
