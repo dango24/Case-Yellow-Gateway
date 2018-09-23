@@ -1,11 +1,17 @@
 package com.icarusrises.caseyellowgateway.domain.webSite.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Role {
 
     private String identifier;
     private Command command;
     private boolean executed;
     private boolean mono;
+    private boolean deprecated;
 
     public Role() {
         this.executed = false;
@@ -16,41 +22,5 @@ public class Role {
         this.command = command;
         this.mono = mono;
         this.executed = false;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public Command getCommand() {
-        return command;
-    }
-
-    public void setCommand(Command command) {
-        this.command = command;
-    }
-
-    public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
-    }
-
-    public boolean isMono() {
-        return mono;
-    }
-
-    public void setMono(boolean mono) {
-        this.mono = mono;
-    }
-
-    public void done() {
-        this.executed = true;
     }
 }
