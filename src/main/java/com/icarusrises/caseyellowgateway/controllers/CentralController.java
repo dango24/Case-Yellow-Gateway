@@ -48,6 +48,14 @@ public class CentralController {
         return centralService.getNextUrls(user);
     }
 
+    @GetMapping(value = "/chrome-options-arguments",
+                consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getChromeOptionsArguments(@RequestHeader(USER_HEADER)String user) {
+        log.info(String.format("Received getChromeOptionsArguments GET request from user: %s", user));
+        return centralService.getChromeOptionsArguments(user);
+    }
+
     @GetMapping(value = "/google-vision-key",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)

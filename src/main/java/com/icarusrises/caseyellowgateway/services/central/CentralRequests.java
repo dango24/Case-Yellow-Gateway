@@ -104,6 +104,13 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
+    @GET("central/chrome-options-arguments")
+    Call<List<String>> getChromeOptionsArguments(@Query("user_name") String userHeader);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     @GET("central/connection-details")
     Call<Map<String, List<String>>> getConnectionDetails(@Header(USER_HEADER) String userHeader);
 

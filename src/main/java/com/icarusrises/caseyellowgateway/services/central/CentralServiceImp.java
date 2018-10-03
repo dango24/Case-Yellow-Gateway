@@ -87,6 +87,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public List<String> getChromeOptionsArguments(String user) {
+        return requestHandler.execute(centralRequests.getChromeOptionsArguments(user));
+    }
+
+    @Override
     public List<Test> getAllTests(String user) {
         return requestHandler.execute(centralRequests.getAllTests(user));
     }

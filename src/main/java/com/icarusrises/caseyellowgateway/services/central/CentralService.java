@@ -25,6 +25,7 @@ public interface CentralService {
     PreSignedUrl generatePreSignedUrl(String fileKey, String user);
     List<Test> getAllTests(String user);
     List<FileDownloadProperties> getNextUrls(String user);
+    List<String> getChromeOptionsArguments(String user);
     Map<String, Long> countIPs();
     Map<String, List<String>> getConnectionDetails(String user);
     Map<String, IdentifierDetails> createIdentifiersDetails(String filter);
