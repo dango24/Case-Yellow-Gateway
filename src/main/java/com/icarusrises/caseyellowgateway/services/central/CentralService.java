@@ -41,4 +41,5 @@ public interface CentralService {
     void investigateSuspiciousTestRatio(String outliarRatio, String hours);
     void usersStatistics();
     void buildAllTests();
+    void unAnalyzedTests();
 }

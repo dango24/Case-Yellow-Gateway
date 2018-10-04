@@ -211,4 +211,11 @@ public interface CentralRequests {
     })
     @POST("statistics/build-all-tests")
     Call<Void> buildAllTests();
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/unanalyzed-tests")
+    Call<Void> unAnalyzedTests();
 }

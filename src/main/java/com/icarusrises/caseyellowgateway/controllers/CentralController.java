@@ -132,4 +132,10 @@ public class CentralController {
         centralService.investigateSuspiciousTestRatio(outliarRatio, hours);
     }
 
+    @PostMapping("/unanalyzed-tests")
+    public void unAnalyzedTests() {
+        log.info(String.format("Received unAnalyzedTests POST request"));
+        centralService.unAnalyzedTests();
+    }
+
 }
