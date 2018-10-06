@@ -42,4 +42,6 @@ public interface CentralService {
     void usersStatistics();
     void buildAllTests();
     void unAnalyzedTests();
+    int getTestLifeCycle(String userName);
+    void updateTestLifeCycle(String userName);
 }

@@ -111,6 +111,20 @@ public interface CentralRequests {
             "Accept: application/json",
             "Content-Type: application/json"
     })
+    @GET("central/test-life-cycle")
+    Call<Integer> getTestLifeCycle(@Query("user_name") String userHeader);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/update-test-life-cycle")
+    Call<Void> updateTestLifeCycle(@Query("user_name") String userHeader);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     @GET("central/connection-details")
     Call<Map<String, List<String>>> getConnectionDetails(@Header(USER_HEADER) String userHeader);
 

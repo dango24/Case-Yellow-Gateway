@@ -49,6 +49,22 @@ public class CentralController {
         return centralService.getNextUrls(user);
     }
 
+    @GetMapping(value = "/test-life-cycle",
+                consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
+    public int getTestLifeCycle(@RequestHeader(USER_HEADER) String userName) {
+        log.info("Received getTestLifeCycle GET request for user: " + userName);
+        return centralService.getTestLifeCycle(userName);
+    }
+
+    @PostMapping(value = "/update-test-life-cycle",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateTestLifeCycle(@RequestHeader(USER_HEADER) String userName) {
+        log.info("Received updateTestLifeCycle POST request for user: " + userName);
+        centralService.updateTestLifeCycle(userName);
+    }
+
     @GetMapping(value = "/chrome-options-arguments",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)

@@ -77,6 +77,16 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public int getTestLifeCycle(String userName) {
+        return requestHandler.execute(centralRequests.getTestLifeCycle(userName));
+    }
+
+    @Override
+    public void updateTestLifeCycle(String userName) {
+        requestHandler.execute(centralRequests.updateTestLifeCycle(userName));
+    }
+
+    @Override
     public SpeedTestMetaData getNextSpeedTestWebSite(String user) {
         return requestHandler.execute(centralRequests.getNextSpeedTestWebSite(user));
     }
