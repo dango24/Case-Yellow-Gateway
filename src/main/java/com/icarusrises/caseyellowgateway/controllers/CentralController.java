@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
+import com.icarusrises.caseyellowgateway.domain.users.LogData;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
@@ -103,6 +104,11 @@ public class CentralController {
         log.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
         failedTestDetails.setUser(user);
         centralService.failedTest(failedTestDetails, user);
+    }
+
+    @PostMapping("/upload-log-data")
+    public void uploadLogData(@RequestHeader(USER_HEADER)String user, @RequestBody LogData logData) throws IOException {
+        log.info(String.format("Received uploadLogData POST request for user: %s, with logData: %s", user, logData));
     }
 
     @GetMapping("/connection-details")
