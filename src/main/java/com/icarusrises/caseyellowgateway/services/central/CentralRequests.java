@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
+import com.icarusrises.caseyellowgateway.domain.users.LogData;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
 import com.icarusrises.caseyellowgateway.persistence.model.UserDAO;
@@ -43,6 +44,13 @@ public interface CentralRequests {
     })
     @GET("central/next-urls")
     Call<List<FileDownloadProperties>> getNextUrls(@Header(USER_HEADER) String userHeader);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("central/upload-log-data")
+    Call<Void> uploadLogData(@Query("user") String user, @Body LogData logData);
 
     @Headers({
             "Accept: application/json",

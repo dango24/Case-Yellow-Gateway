@@ -116,15 +116,16 @@ public class CentralController {
     }
 
     @PostMapping("/failed-test")
-    public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) throws IOException {
+    public void failedTest(@RequestHeader(USER_HEADER)String user, @RequestBody FailedTestDetails failedTestDetails) {
         log.info(String.format("Received HttpStatus POST request with failed test: %s, from user: %s", failedTestDetails, user));
         failedTestDetails.setUser(user);
         centralService.failedTest(failedTestDetails, user);
     }
 
     @PostMapping("/upload-log-data")
-    public void uploadLogData(@RequestHeader(USER_HEADER)String user, @RequestBody LogData logData) throws IOException {
+    public void uploadLogData(@RequestHeader(USER_HEADER)String user, @RequestBody LogData logData)  {
         log.info(String.format("Received uploadLogData POST request for user: %s, with logData: %s", user, logData));
+        centralService.uploadLogData(user, logData);
     }
 
     @GetMapping("/connection-details")

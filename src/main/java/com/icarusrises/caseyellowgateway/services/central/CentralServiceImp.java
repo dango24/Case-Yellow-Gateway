@@ -2,6 +2,7 @@ package com.icarusrises.caseyellowgateway.services.central;
 
 import com.icarusrises.caseyellowgateway.domain.file.model.FileDownloadProperties;
 import com.icarusrises.caseyellowgateway.domain.test.model.*;
+import com.icarusrises.caseyellowgateway.domain.users.LogData;
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.GoogleVisionKey;
 import com.icarusrises.caseyellowgateway.domain.webSite.model.SpeedTestMetaData;
@@ -63,6 +64,11 @@ public class CentralServiceImp implements CentralService {
     @Override
     public void saveTest(Test test, String user) throws RequestFailureException {
         requestHandler.execute(centralRequests.saveTest(user, test));
+    }
+
+    @Override
+    public void uploadLogData(String user, LogData logData) {
+        requestHandler.execute(centralRequests.uploadLogData(user, logData));
     }
 
     @Override

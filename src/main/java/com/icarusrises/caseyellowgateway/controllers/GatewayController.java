@@ -37,7 +37,7 @@ public class GatewayController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/health")
     public String health() {
-        return "ADE here we come";
+        return "Goa here we come";
     }
 
     @ResponseStatus(HttpStatus.OK)
