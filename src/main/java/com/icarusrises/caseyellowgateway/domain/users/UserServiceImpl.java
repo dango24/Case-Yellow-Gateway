@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public UserDAO getUser(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
     private void addUser(String userName, String rawPassword) {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         UserDAO userDAO = new UserDAO(userName, encodedPassword);

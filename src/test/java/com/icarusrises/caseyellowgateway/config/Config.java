@@ -24,6 +24,11 @@ public class Config {
             public List<UserDAO> getAllUsers() {
                 return null;
             }
+
+            @Override
+            public UserDAO getUser(String userName) {
+                return null;
+            }
         };
     }
 }

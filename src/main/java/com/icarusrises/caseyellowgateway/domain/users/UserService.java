@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserService {
     void addUser(String adminToken, String userName, String rawPassword);
     List<UserDAO> getAllUsers();
+    UserDAO getUser(String userName);
 }
