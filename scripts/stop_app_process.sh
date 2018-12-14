@@ -8,3 +8,5 @@ echo WEB_PID
 
 kill -9 "${GATEWAY_PID}"
 kill -9 "${WEB_PID}"
+
+exit 0
