@@ -165,8 +165,8 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public void unAnalyzedTests() {
-        requestHandler.execute(centralRequests.unAnalyzedTests());
+    public void unAnalyzedTests(int periodInDays) {
+        requestHandler.execute(centralRequests.unAnalyzedTests(periodInDays));
     }
 
     @Override

@@ -239,5 +239,5 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @POST("central/unanalyzed-tests")
-    Call<Void> unAnalyzedTests();
+    Call<Void> unAnalyzedTests(@Query("period_in_hours")int periodInDays);
 }

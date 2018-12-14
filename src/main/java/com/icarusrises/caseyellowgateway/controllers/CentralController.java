@@ -156,9 +156,9 @@ public class CentralController {
     }
 
     @PostMapping("/unanalyzed-tests")
-    public void unAnalyzedTests() {
+    public void unAnalyzedTests(@RequestParam("period_in_hours")int periodInDays) {
         log.info(String.format("Received unAnalyzedTests POST request"));
-        centralService.unAnalyzedTests();
+        centralService.unAnalyzedTests(periodInDays);
     }
 
 }
