@@ -3,7 +3,6 @@ package com.icarusrises.caseyellowgateway.security.configuration;
 import com.icarusrises.caseyellowgateway.domain.users.UserServiceImpl;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.Filter;
 
 @Profile("prod")
 @Configuration
@@ -27,13 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserServiceImpl prodBootstrap;
     private CentralService centralService;
     private DaoAuthenticationProvider daoAuthenticationProvider;
-    private Filter userActiveFilter;
 
     @Autowired
-    public void setDaoAuthenticationProvider(DaoAuthenticationProvider daoAuthenticationProvider,
-                                             @Qualifier("UserActiveFilter") Filter userActiveFilter) {
+    public void setDaoAuthenticationProvider(DaoAuthenticationProvider daoAuthenticationProvider) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
-        this.userActiveFilter = userActiveFilter;
     }
 
     @Autowired
@@ -59,8 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JWTLoginFilter("/login", centralService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(userActiveFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
