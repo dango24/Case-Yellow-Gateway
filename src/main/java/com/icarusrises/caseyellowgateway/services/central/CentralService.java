@@ -43,7 +43,7 @@ public interface CentralService {
     void uploadLogData(String user, LogData logData);
     void usersStatistics();
     void buildAllTests();
-    void unAnalyzedTests(int periodInDays);
+    void unAnalyzedTests(int periodInDays, int analyzedStateCode);
     int getTestLifeCycle(String userName);
     void updateTestLifeCycle(String userName);
 }

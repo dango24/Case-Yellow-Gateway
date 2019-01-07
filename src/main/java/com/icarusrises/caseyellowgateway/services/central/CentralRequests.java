@@ -204,7 +204,7 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @POST("statistics/users-last-test")
-    Call<UsersLastTest> usersLastTest(@Query("period") int lastTimeInHours, @Body List<UserDAO> users);
+    Call<UsersLastTest> usersLastTest(@Query("period") int lastTimeInHours);
 
     @Headers({
             "Accept: application/json",
@@ -239,5 +239,5 @@ public interface CentralRequests {
             "Content-Type: application/json"
     })
     @POST("central/unanalyzed-tests")
-    Call<Void> unAnalyzedTests(@Query("period_in_hours")int periodInDays);
+    Call<Void> unAnalyzedTests(@Query("period_in_hours")int periodInDays, @Query("analyzed_state_code")int analyzedStateCode);
 }

@@ -165,19 +165,13 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
-    public void unAnalyzedTests(int periodInDays) {
-        requestHandler.execute(centralRequests.unAnalyzedTests(periodInDays));
+    public void unAnalyzedTests(int periodInDays, int analyzedStateCode) {
+        requestHandler.execute(centralRequests.unAnalyzedTests(periodInDays, analyzedStateCode));
     }
 
     @Override
     public UsersLastTest usersLastTest(int lastTimeInHours) {
-        List<UserDAO> users =
-                userService.getAllUsers()
-                           .stream()
-                           .filter(UserDAO::isEnabled)
-                           .collect(Collectors.toList());
-
-        return requestHandler.execute(centralRequests.usersLastTest(lastTimeInHours, users));
+        return requestHandler.execute(centralRequests.usersLastTest(lastTimeInHours));
     }
 
     @Override
