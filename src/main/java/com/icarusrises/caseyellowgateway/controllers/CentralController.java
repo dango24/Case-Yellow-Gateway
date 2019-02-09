@@ -53,7 +53,7 @@ public class CentralController {
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public int getTestLifeCycle(@RequestHeader(USER_HEADER) String userName) {
-        log.info("Received getTestLifeCycle GET request for user: " + userName);
+        log.info(String.format("Received getTestLifeCycle GET request for user: %s", userName));
         return centralService.getTestLifeCycle(userName);
     }
 
