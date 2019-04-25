@@ -23,5 +23,7 @@ public class FileDownloadInfo {
     private double fileDownloadRateKBPerSec;
     private long   fileDownloadedDurationTimeInMs;
     private long   startDownloadingTimestamp;
+    private String traceRouteOutputPreviousDownloadFile;
+    private String traceRouteOutputAfterDownloadFile;
     private Map<String, List<String>> headers;
 }
