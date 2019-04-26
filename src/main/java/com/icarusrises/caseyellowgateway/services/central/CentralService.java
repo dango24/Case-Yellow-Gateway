@@ -46,4 +46,5 @@ public interface CentralService {
     void unAnalyzedTests(int periodInDays, int analyzedStateCode);
     int getTestLifeCycle(String userName);
     void updateTestLifeCycle(String userName);
+    boolean runClassicTest(String user);
 }

@@ -93,6 +93,11 @@ public class CentralServiceImp implements CentralService {
     }
 
     @Override
+    public boolean runClassicTest(String user) {
+        return requestHandler.execute(centralRequests.runClassicTest());
+    }
+
+    @Override
     public SpeedTestMetaData getNextSpeedTestWebSite(String user) {
         return requestHandler.execute(centralRequests.getNextSpeedTestWebSite(user));
     }

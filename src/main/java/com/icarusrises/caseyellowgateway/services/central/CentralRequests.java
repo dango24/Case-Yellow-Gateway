@@ -240,4 +240,11 @@ public interface CentralRequests {
     })
     @POST("central/unanalyzed-tests")
     Call<Void> unAnalyzedTests(@Query("period_in_hours")int periodInDays, @Query("analyzed_state_code")int analyzedStateCode);
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("central/run-classic-test")
+    Call<Boolean> runClassicTest();
 }

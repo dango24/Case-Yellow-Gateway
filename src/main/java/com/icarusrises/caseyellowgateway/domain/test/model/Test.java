@@ -23,6 +23,7 @@ public class Test {
     private String computerIdentifier;
     private Long startTime;
     private Long endTime;
+    private boolean classicTest;
     private SystemInfo systemInfo;
     private String speedTestWebsiteIdentifier;
     private List<ComparisonInfo> comparisonInfoTests;

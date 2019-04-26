@@ -49,6 +49,15 @@ public class CentralController {
         return centralService.getNextUrls(user);
     }
 
+
+    @GetMapping(value = "/run-classic-test",
+                consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean runClassicTest(@RequestHeader(USER_HEADER)String user) {
+        log.info(String.format("Received runClassicTest GET request from user: %s", user));
+        return centralService.runClassicTest(user);
+    }
+
     @GetMapping(value = "/test-life-cycle",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
