@@ -55,12 +55,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(String adminToken, String userName, String rawPassword) {
+    public void addUser(String adminToken, UserSignInDetails userSignInDetails) {
         if (!isValidAdminKey(adminToken)) {
             throw new IllegalArgumentException(String.format("Admin token is incorrect"));
+
+        } else if (isUserNameExist(userSignInDetails.getUserName())) {
+            throw new IllegalArgumentException(String.format("User name: %s is already taken, please choose a different user name", userSignInDetails.getUserName()));
         }
 
-        addUser(userName, rawPassword);
+        addUser(userSignInDetails);
+    }
+
+    private boolean isUserNameExist(String userName) {
+        return nonNull(userRepository.findByUserName(userName));
     }
 
     @Override
@@ -73,15 +80,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserName(userName);
     }
 
-    private void addUser(String userName, String rawPassword) {
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-        UserDAO userDAO = new UserDAO(userName, encodedPassword);
+    private void addUser(UserSignInDetails userSignInDetails) {
+        String encodedPassword = passwordEncoder.encode(userSignInDetails.getRawPassword());
+        UserDAO userDAO = new UserDAO(userSignInDetails.getUserName(), encodedPassword);
 
         RoleDAO userRole = roleRepository.findByRole("USER");
         userDAO.setRoles(Arrays.asList(userRole));
 
-        log.info(String.format("Add user: %s to DB", userName));
+        if (nonNull(userSignInDetails.getSpotMasterReferral())) {
+            userDAO.setSpotMasterReferral(userSignInDetails.getSpotMasterReferral());
+        }
+
+        log.info(String.format("Add user: %s to DB", userSignInDetails.getUserName()));
         userRepository.save(userDAO);
+        log.info(String.format("User: %s added successfully to DB", userSignInDetails.getUserName()));
         statsDClient.increment("user.added");
     }
 

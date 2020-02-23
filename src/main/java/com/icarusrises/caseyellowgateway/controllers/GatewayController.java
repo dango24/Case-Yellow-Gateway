@@ -1,6 +1,7 @@
 package com.icarusrises.caseyellowgateway.controllers;
 
 import com.icarusrises.caseyellowgateway.domain.users.UserService;
+import com.icarusrises.caseyellowgateway.domain.users.UserSignInDetails;
 import com.icarusrises.caseyellowgateway.services.analysis.AnalysisService;
 import com.icarusrises.caseyellowgateway.services.central.CentralService;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -56,25 +55,16 @@ public class GatewayController {
     public void addUser(@RequestHeader(ADMIN_TOKEN) String adminToken, @RequestBody UserSignInDetails userSignInDetails) {
         log.info(String.format("Received addUser PUT request, for user: %s", userSignInDetails.getUserName()));
 
-        if (!validUserSignInDetails(userSignInDetails)) {
+        if (!validateUserSignInDetails(userSignInDetails)) {
             throw new IllegalArgumentException(String.format("userSignInDetails is incorrect for user: %s" , userSignInDetails.getUserName()));
         }
 
-        userService.addUser(adminToken, userSignInDetails.getUserName(), userSignInDetails.getRawPassword());
+        userService.addUser(adminToken, userSignInDetails);
     }
 
-    private boolean validUserSignInDetails(UserSignInDetails userSignInDetails) {
+    private boolean validateUserSignInDetails(UserSignInDetails userSignInDetails) {
         return StringUtils.isNotEmpty(userSignInDetails.getUserName())  &&
                StringUtils.isNotEmpty(userSignInDetails.getRawPassword());
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    private static class UserSignInDetails {
-
-        private String userName;
-        private String rawPassword;
     }
 }
 
